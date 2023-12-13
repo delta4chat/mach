@@ -15,6 +15,7 @@ pub mod clock;
 pub mod clock_priv;
 pub mod clock_reply;
 pub mod clock_types;
+pub mod dlfcn;
 pub mod dyld_images;
 pub mod dyld_kernel;
 pub mod error;

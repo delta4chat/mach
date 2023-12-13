@@ -16,12 +16,12 @@ extern "C" {
         buffersize: ::libc::c_uint,
     ) -> kern_return_t;
     pub fn proc_pidinfo(
-        pid: ::core::ffi::c_int,
-        flavor: ::core::ffi::c_int,
+        pid: ::libc::c_int,
+        flavor: ::libc::c_int,
         arg: u64,
-        buffer: *mut ::core::ffi::c_void,
-        buffersize: ::core::ffi::c_int,
-    ) -> ::core::ffi::c_int;
+        buffer: *mut ::libc::c_void,
+        buffersize: ::libc::c_int,
+    ) -> ::libc::c_int;
 }
 
 #[repr(C)]
