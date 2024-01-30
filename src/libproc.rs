@@ -6,6 +6,7 @@ use super::{
 };
 
 pub const PROC_PIDPATHINFO_MAXSIZE: ::libc::c_uint = 4096;
+pub const PROC_ALL_PIDS: u32 = 1;
 
 extern "C" {
     pub fn proc_pidpath(pid: ::libc::pid_t, buffer: *mut ::libc::c_void, buffersize: ::libc::c_uint) -> kern_return_t;
@@ -22,6 +23,13 @@ extern "C" {
         buffer: *mut ::libc::c_void,
         buffersize: ::libc::c_int,
     ) -> ::libc::c_int;
+    pub fn proc_listpids(
+        type_: u32,
+        typeinfo: u32,
+        buffer: *mut ::libc::c_void,
+        buffersize: ::libc::c_int,
+    ) -> ::libc::c_int;
+    pub fn proc_listallpids(buffer: *mut ::libc::c_void, buffersize: ::libc::c_int) -> ::libc::c_int;
 }
 
 #[repr(C)]
