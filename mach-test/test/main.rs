@@ -1,53 +1,53 @@
 #![allow(bad_style)]
 
 extern crate libc;
-extern crate mach2;
+extern crate mach_sys;
 
-use mach2::boolean::*;
-use mach2::bootstrap::*;
-use mach2::clock::*;
-use mach2::clock_priv::*;
-use mach2::clock_reply::*;
-use mach2::clock_types::*;
-use mach2::dyld::*;
-use mach2::dyld_kernel::*;
-use mach2::exc::*;
-use mach2::exception_types::*;
-use mach2::kern_return::*;
-use mach2::loader::*;
-use mach2::mach_init::*;
-use mach2::mach_port::*;
-use mach2::mach_time::*;
-use mach2::mach_types::*;
-use mach2::memory_object_types::*;
-use mach2::message::*;
-use mach2::ndr::*;
-use mach2::port::*;
-use mach2::semaphore::*;
-use mach2::structs::*;
-use mach2::sync_policy::*;
-use mach2::task::*;
-use mach2::task_info::*;
-use mach2::thread_act::*;
-use mach2::thread_policy::*;
-use mach2::thread_status::*;
-use mach2::time_value::*;
-use mach2::traps::*;
-use mach2::vm::*;
-use mach2::vm_attributes::*;
-use mach2::vm_behavior::*;
-use mach2::vm_inherit::*;
+use mach_sys::boolean::*;
+use mach_sys::bootstrap::*;
+use mach_sys::clock::*;
+use mach_sys::clock_priv::*;
+use mach_sys::clock_reply::*;
+use mach_sys::clock_types::*;
+use mach_sys::dyld::*;
+use mach_sys::dyld_kernel::*;
+use mach_sys::exc::*;
+use mach_sys::exception_types::*;
+use mach_sys::kern_return::*;
+use mach_sys::loader::*;
+use mach_sys::mach_init::*;
+use mach_sys::mach_port::*;
+use mach_sys::mach_time::*;
+use mach_sys::mach_types::*;
+use mach_sys::memory_object_types::*;
+use mach_sys::message::*;
+use mach_sys::ndr::*;
+use mach_sys::port::*;
+use mach_sys::semaphore::*;
+use mach_sys::structs::*;
+use mach_sys::sync_policy::*;
+use mach_sys::task::*;
+use mach_sys::task_info::*;
+use mach_sys::thread_act::*;
+use mach_sys::thread_policy::*;
+use mach_sys::thread_status::*;
+use mach_sys::time_value::*;
+use mach_sys::traps::*;
+use mach_sys::vm::*;
+use mach_sys::vm_attributes::*;
+use mach_sys::vm_behavior::*;
+use mach_sys::vm_inherit::*;
 // FIXME: vm_page_size is not used => not tested?
 #[allow(unused_imports)]
-use mach2::vm_page_size::*;
-use mach2::vm_prot::*;
-use mach2::vm_purgable::*;
-use mach2::vm_region::*;
-use mach2::vm_statistics::*;
-use mach2::vm_sync::*;
-use mach2::vm_types::*;
+use mach_sys::vm_page_size::*;
+use mach_sys::vm_prot::*;
+use mach_sys::vm_purgable::*;
+use mach_sys::vm_region::*;
+use mach_sys::vm_statistics::*;
+use mach_sys::vm_sync::*;
+use mach_sys::vm_types::*;
 
-// These types are not re-exported by mach2::types but they are required.
+// These types are not re-exported by mach_sys::types but they are required.
 use libc::{c_int, c_uchar, c_uint, c_ulonglong, clock_t};
 
 // Imported by mach, but kept private:
