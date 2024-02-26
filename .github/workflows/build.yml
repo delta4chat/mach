@@ -41,13 +41,14 @@ jobs:
           git switch master
           git reset --hard ${{github.sha}}
 
+      - name: cross-compile test
       - run: |
-        export TARGET=${{ matrix.target }}
-        export RUST_VERSION=nightly
-        export NOCTEST=1
-        export NORUN=1
+          export TARGET=${{ matrix.target }}
+          export RUST_VERSION=nightly
+          export NOCTEST=1
+          export NORUN=1
 
-        bash ci/run.sh
+          bash ci/run.sh
 
   amd64-mac:
     runs-on: macos-12
