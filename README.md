@@ -22,7 +22,12 @@ Add the following to your `Cargo.toml` to conditionally include mach on those
 platforms that support it.
 
 ```toml
-[target.'cfg(target_family="apple")'.dependencies]
+[target.'cfg(target_vendor="apple")'.dependencies]
+
+// use alias for migration from exists project:
+mach = { package = "mach-sys", version = "0.4.4" }
+
+// or without alias:
 mach-sys = "0.4.4"
 ```
 
@@ -35,15 +40,20 @@ Available crate feature:
 
 We do the following steps when an item is changed/removed on latest toolchain:
 
-1. Deprecate an existing one
-2. Declare a new one under the `unstable` feature
-3. After a month or more since releasing a new version that contains that change,
-  remove/change an older one
+1. Flagging an existing one as **Deprecated**.
+2. Declare a new one (by default).
+3. Forever kept older one.
 
-For instance, if const `FOO` value is changed from `3` to `4`,
-we expose the newer one, i.e. `4`, under `unstable` first.
-So the `unstable` users should notice the change on the first release since deprecating.
-After a month or more, all the users should notice it.
+4. if two items have equivalents value, then type alias to new one, or internal function calling new one.
+5. otherwise, if two items have different value or behavior, then both will exists together.
+6. or, in cases, if the older one is _really_ sucks, then After a month or more since releasing a new version that contains that _remove an older one_.
+
+For instance (equivalent), if function `FUNC` will changes it's _return type_ from `u32` to `u64`, a new function will be created, then older function just call it and convert it's return type (`u64 as u32`). in most of cases, no more changes will be taken, and both of these will be kept forever.
+
+For instance (non-equivalent), if const `FOO` value is changed from `3` to `4`,
+we expose the newer one, i.e. `4`.
+So the users should notice the change on the first release since deprecating.
+Or, After a month or more, **may or may not**, all the users should migration/following this change.
 
 ## Examples
 

@@ -9,19 +9,27 @@ use crate::message::mach_msg_type_number_t;
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct arm_thread_state64_t {
-    pub __x: [u64; 29],
-    pub __fp: u64,
-    pub __lr: u64,
-    pub __sp: u64,
-    pub __pc: u64,
-    pub __cpsr: u32,
+    pub __x:    [u64; 29],
+    pub __fp:    u64,
+    pub __lr:    u64,
+    pub __sp:    u64,
+    pub __pc:    u64,
+    pub __cpsr:  u32,
     pub __flags: u32,
 }
 
 #[cfg(target_arch = "aarch64")]
 impl arm_thread_state64_t {
     pub const fn new() -> Self {
-        Default::default()
+        Self {
+            __x:    [0; 29],
+            __fp:    0,
+            __lr:    0,
+            __sp:    0,
+            __pc:    0,
+            __cpsr:  0,
+            __flags: 0,
+        }
     }
 
     pub const fn count() -> mach_msg_type_number_t {

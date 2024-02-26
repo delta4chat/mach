@@ -10,8 +10,10 @@
 )]
 #![no_std]
 
-#[cfg(not(any(target_os = "macos", target_os = "ios")))]
-compile_error!("mach requires macOS or iOS");
+#[cfg(not(target_vendor="apple"))]
+mod _err {
+    //compile_error!("mach requires macOS or iOS");
+}
 
 #[allow(unused_imports)]
 use core::{clone, cmp, default, fmt, hash, marker, mem, option};
