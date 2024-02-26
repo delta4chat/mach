@@ -1,4 +1,4 @@
-# mach2
+# mach-sys
 
 [![Latest Version]][crates.io] [![docs]][docs.rs]
 
@@ -22,8 +22,8 @@ Add the following to your `Cargo.toml` to conditionally include mach on those
 platforms that support it.
 
 ```toml
-[target.'cfg(any(target_os = "macos", target_os = "ios"))'.dependencies.mach]
-version = "0.4"
+[target.'cfg(target_family="apple")'.dependencies]
+mach-sys = "0.4.4"
 ```
 
 Available crate feature:
@@ -110,7 +110,8 @@ where you can replace the `TARGET` and `RUST_VERSION` with the target you
 want to test (e.g. `aarch64-apple-darwin`) and the Rust version you want to use for
 the tests (e.g. `stable`, `1.33.0`, etc.).
 
-[crates.io]: https://crates.io/crates/mach2
-[Latest Version]: https://img.shields.io/crates/v/mach2.svg
-[docs]: https://docs.rs/mach2/badge.svg
-[docs.rs]: https://docs.rs/mach2
+[crates.io]: https://crates.io/crates/mach-sys
+[Latest Version]: https://img.shields.io/crates/v/mach-sys.svg
+[docs]: https://docs.rs/mach-sys/badge.svg
+[docs.rs]: https://docs.rs/mach-sys
+
