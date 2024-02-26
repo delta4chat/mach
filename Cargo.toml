@@ -25,9 +25,6 @@ edition = "2021"
 [badges]
 maintenance = { status = "passively-maintained" }
 
-[dependencies]
-libc = { version = "0.2", default-features = false }
-
 [features]
 default = []
 # Uses newer APIs

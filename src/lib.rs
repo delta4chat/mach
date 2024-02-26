@@ -13,8 +13,6 @@
 #[cfg(not(any(target_os = "macos", target_os = "ios")))]
 compile_error!("mach requires macOS or iOS");
 
-extern crate libc;
-
 #[allow(unused_imports)]
 use core::{clone, cmp, default, fmt, hash, marker, mem, option};
 

@@ -1,80 +1,67 @@
 //! This module roughly corresponds to `mach/task_info.h`.
 
 use core::mem::size_of;
+use core::ffi::c_uint;
 
-use vm_types::{
-    integer_t, natural_t,
-    mach_vm_address_t, mach_vm_size_t,
+use crate::vm_types::{
+    integer_t,
+    natural_t,
+    mach_vm_address_t,
+    mach_vm_size_t,
 };
-use message::mach_msg_type_number_t;
+use crate::message::mach_msg_type_number_t;
 
-use ::libc::c_uint;
-
-pub const TASK_INFO_MAX: c_uint = 1024;
-pub const TASK_BASIC_INFO_32: c_uint = 4;
+pub const TASK_INFO_MAX:       c_uint = 1024;
+pub const TASK_BASIC_INFO_32:  c_uint = 4;
 pub const TASK_BASIC2_INFO_32: c_uint = 6;
 
 #[cfg(target_arch = "x86_64")]
-pub const TASK_BASIC_INFO_64: c_uint = 5;
+pub const TASK_BASIC_INFO_64:  c_uint = 5;
 
 #[cfg(target_arch = "aarch64")]
-pub const TASK_BASIC_INFO_64: c_uint = 18;
+pub const TASK_BASIC_INFO_64:  c_uint = 18;
 
-#[cfg(target_bits = "32")]
+#[cfg(target_pointer_width = "32")]
 pub const TASK_BASIC_INFO: c_uint = TASK_BASIC_INFO_32;
 
-#[cfg(target_bits = "64")]
+#[cfg(target_pointer_width = "64")]
 pub const TASK_BASIC_INFO: c_uint = TASK_BASIC_INFO_64;
 
-pub const TASK_EVENTS_INFO: c_uint = 2;
-pub const TASK_THREAD_TIMES_INFO: c_uint = 3;
-pub const TASK_ABSOLUTETIME_INFO: c_uint = 1;
-pub const TASK_KERNELMEMORY_INFO: c_uint = 7;
-pub const TASK_SECURITY_TOKEN: c_uint = 13;
-pub const TASK_AUDIT_TOKEN: c_uint = 15;
-pub const TASK_AFFINITY_TAG_INFO: c_uint = 16;
-pub const TASK_DYLD_INFO: c_uint = 17;
-pub const TASK_DYLD_ALL_IMAGE_INFO_32: c_uint = 0;
-pub const TASK_DYLD_ALL_IMAGE_INFO_64: c_uint = 1;
-pub const TASK_EXTMOD_INFO: c_uint = 19;
-pub const MACH_TASK_BASIC_INFO: c_uint = 20;
-pub const TASK_POWER_INFO: c_uint = 21;
-pub const TASK_VM_INFO: c_uint = 22;
-pub const TASK_VM_INFO_PURGEABLE: c_uint = 23;
-pub const TASK_TRACE_MEMORY_INFO: c_uint = 24;
-pub const TASK_WAIT_STATE_INFO: c_uint = 25;
-pub const TASK_POWER_INFO_V2: c_uint = 26;
+pub const TASK_EVENTS_INFO:               c_uint = 2;
+pub const TASK_THREAD_TIMES_INFO:         c_uint = 3;
+pub const TASK_ABSOLUTETIME_INFO:         c_uint = 1;
+pub const TASK_KERNELMEMORY_INFO:         c_uint = 7;
+pub const TASK_SECURITY_TOKEN:            c_uint = 13;
+pub const TASK_AUDIT_TOKEN:               c_uint = 15;
+pub const TASK_AFFINITY_TAG_INFO:         c_uint = 16;
+pub const TASK_DYLD_INFO:                 c_uint = 17;
+pub const TASK_DYLD_ALL_IMAGE_INFO_32:    c_uint = 0;
+pub const TASK_DYLD_ALL_IMAGE_INFO_64:    c_uint = 1;
+pub const TASK_EXTMOD_INFO:               c_uint = 19;
+pub const MACH_TASK_BASIC_INFO:           c_uint = 20;
+pub const TASK_POWER_INFO:                c_uint = 21;
+pub const TASK_VM_INFO:                   c_uint = 22;
+pub const TASK_VM_INFO_PURGEABLE:         c_uint = 23;
+pub const TASK_TRACE_MEMORY_INFO:         c_uint = 24;
+pub const TASK_WAIT_STATE_INFO:           c_uint = 25;
+pub const TASK_POWER_INFO_V2:             c_uint = 26;
 pub const TASK_VM_INFO_PURGEABLE_ACCOUNT: c_uint = 27;
-pub const TASK_FLAGS_INFO: c_uint = 28;
-pub const TASK_DEBUG_INFO_INTERNAL: c_uint = 29;
+pub const TASK_FLAGS_INFO:                c_uint = 28;
+pub const TASK_DEBUG_INFO_INTERNAL:       c_uint = 29;
 
 pub type task_flavor_t = natural_t;
-pub type task_info_t = *mut integer_t;
+pub type task_info_t   = *mut integer_t;
 
 pub type task_vm_info_t = task_vm_info_rev5_t;
-pub type task_vm_info = task_vm_info_t;
+pub type task_vm_info   = task_vm_info_t;
 
-pub const TASK_VM_INFO_COUNT: mach_msg_type_number_t =
-size_of::<task_vm_info_rev5_t>()/size_of::<natural_t>();
-
-pub const TASK_VM_INFO_REV5_COUNT:mach_msg_type_number_t
-    = TASK_VM_INFO_COUNT;
-
-pub const TASK_VM_INFO_REV4_COUNT:mach_msg_type_number_t
-    = TASK_VM_INFO_REV5_COUNT - 1;
-
-pub const TASK_VM_INFO_REV3_COUNT:mach_msg_type_number_t
-    = TASK_VM_INFO_REV4_COUNT - 2;
-
-pub const TASK_VM_INFO_REV2_COUNT:mach_msg_type_number_t
-    = TASK_VM_INFO_REV3_COUNT - 42;
-
-pub const TASK_VM_INFO_REV1_COUNT:mach_msg_type_number_t
-    = TASK_VM_INFO_REV2_COUNT - 4;
-
-pub const TASK_VM_INFO_REV0_COUNT:mach_msg_type_number_t
-    = TASK_VM_INFO_REV1_COUNT - 2;
-
+pub const TASK_VM_INFO_COUNT:      mach_msg_type_number_t = TASK_VM_INFO_REV5_COUNT;
+pub const TASK_VM_INFO_REV5_COUNT: mach_msg_type_number_t = (size_of::<task_vm_info_rev5_t>() / size_of::<natural_t>() ) as _;
+pub const TASK_VM_INFO_REV4_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV5_COUNT - 1;
+pub const TASK_VM_INFO_REV3_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV4_COUNT - 2;
+pub const TASK_VM_INFO_REV2_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV3_COUNT - 42;
+pub const TASK_VM_INFO_REV1_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV2_COUNT - 4;
+pub const TASK_VM_INFO_REV0_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV1_COUNT - 2;
 
 // https://github.com/apple/darwin-xnu/blob/2ff845c2e033bd0ff64b5b6aa6063a1f8f65aa32/osfmk/mach/task_info.h#L425
 //

@@ -1,12 +1,13 @@
 //! A script to read and dump to stdout the current register values of a
 //! process.
 
-extern crate libc;
+use core::ffi::c_int;
+use core::mem;
+use core::ptr;
+
 extern crate mach_sys;
 
 use std::io;
-use std::mem;
-use std::ptr;
 
 use mach_sys::kern_return::KERN_SUCCESS;
 use mach_sys::mach_types::{task_t, thread_act_array_t};
@@ -29,16 +30,16 @@ use mach_sys::structs::x86_thread_state64_t as thread_state64_t;
 
 use std::io::prelude::*;
 
-fn read_int() -> Result<::libc::c_int, ()> {
+fn read_int() -> Result<c_int, ()> {
     let stdin = io::stdin();
     let mut line = String::new();
 
     stdin.read_line(&mut line).ok().unwrap();
-    let mut value: ::libc::c_int = 0;
+    let mut value: c_int = 0;
 
     for c in line.chars().take_while(|&c| c != '\n') {
         if let Some(d) = c.to_digit(10) {
-            value = value * 10 + (d as ::libc::c_int);
+            value = value * 10 + (d as c_int);
         } else {
             return Err(());
         }
@@ -142,7 +143,7 @@ fn main() {
         mach_vm_deallocate(
             mach_task_self(),
             thread_list as _,
-            ((thread_count as usize) * mem::size_of::<libc::c_int>()) as _,
+            ((thread_count as usize) * mem::size_of::<c_int>()) as _,
         );
     }
 
