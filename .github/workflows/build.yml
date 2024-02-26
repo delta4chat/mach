@@ -42,7 +42,7 @@ jobs:
           git reset --hard ${{github.sha}}
 
       - name: cross-compile test
-      - run: |
+        run: |
           export TARGET=${{ matrix.target }}
           export RUST_VERSION=nightly
           export NOCTEST=1
