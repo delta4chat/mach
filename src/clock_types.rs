@@ -28,13 +28,18 @@ pub const NSEC_PER_USEC: c_ulonglong = 1_000;
 pub const NSEC_PER_MSEC: c_ulonglong = 1_000_000;
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq)]
+#[derive(Copy, Clone, Debug, Default, Hash)]
 pub struct mach_timespec_t {
     pub tv_sec:  c_uint,
     pub tv_nsec: clock_res_t,
 }
 pub type mach_timespec = mach_timespec_t;
 
+impl PartialOrd for mach_timespec {
+    fn partial_cmp(&self, other: &mach_timespec) -> Option<Ordering> {
+        Some(mach_timespec::cmp(self, other))
+    }
+}
 impl Ord for mach_timespec {
     fn cmp(&self, other: &mach_timespec) -> Ordering {
         mach_timespec::cmp(self, other)
@@ -46,11 +51,40 @@ impl From<mach_timespec> for Duration {
         val.to_duration()
     }
 }
+impl From<&mach_timespec> for Duration {
+    fn from(val: &mach_timespec) -> Duration {
+        val.to_duration()
+    }
+}
 impl From<Duration> for mach_timespec {
     fn from(val: Duration) -> mach_timespec {
         mach_timespec::from_duration(val)
     }
 }
+impl From<&Duration> for mach_timespec {
+    fn from(val: &Duration) -> mach_timespec {
+        mach_timespec::from_duration(*val)
+    }
+}
+
+/*
+impl PartialEq for mach_timespec {
+    fn eq(&self, other: &Self) -> bool {
+        assert!( self.is_valid());
+        assert!(other.is_valid());
+
+        self.tv_sec == other.tv_sec && self.tv_nsec == other.tv_nsec
+    }
+}*/
+
+impl<T> PartialEq<T> for mach_timespec
+where T: Into<Duration> + Clone
+{
+    fn eq(&self, other: &T) -> bool {
+        self.to_duration() == other.clone().into()
+    }
+}
+impl Eq for mach_timespec {}
 
 impl mach_timespec {
     pub const fn new() -> Self {
@@ -77,8 +111,15 @@ impl mach_timespec {
     pub fn from_secs_f64(fsec: f64) -> Self {
         Self::from_duration( Duration::from_secs_f64(fsec) )
     }
+    pub fn as_secs_f64(&self) -> f64 {
+        self.to_duration().as_secs_f64()
+    }
+
     pub fn from_secs_f32(fsec: f32) -> Self {
         Self::from_duration( Duration::from_secs_f32(fsec) )
+    }
+    pub fn as_secs_f32(&self) -> f32 {
+        self.to_duration().as_secs_f32()
     }
     /* end non-const methods */
 
@@ -113,7 +154,7 @@ impl mach_timespec {
             tv_sec,
             tv_nsec,
         };
-        assert!( this.is_valid() ); // this should never fails (otherwise found a bug)
+        assert!(this.is_valid()); // this should never fails (otherwise found a bug)
         this
     }
 
@@ -314,10 +355,49 @@ pub const fn BAD_ALRMTYPE(t: c_uint) -> bool {
     ( t & (!TIME_RELATIVE) ) != 0
 }
 
-#[test]
+#[cfg(test)]
 mod test {
+    use super::*;
+    use std::io::Write;
+
+    use crate::pl;
+
     #[test]
     fn ops_add() {
-        mach_timespec::from_nanos()
+        let mut rets = std::vec::Vec::new();
+        let c = 10240;
+        for _ in 0..c {
+            let n = fastrand::i32(clock_res_t::MIN as i32..clock_res_t::MAX as i32) as clock_res_t;
+            rets.push(_ops_add(n));
+        }
+
+        for out in
+            rets.into_iter()
+            .skip(c - 5)
+            .collect::<Vec<_>>()
+        {
+            pl!("{}", out);
+        }
+    }
+
+    fn _ops_add(n: clock_res_t) -> String {
+        let ret = std::panic::catch_unwind(|| {
+            mach_timespec::from_nanos(n)
+        });
+
+        let mut out = String::new();
+        if n >= 0 {
+            let spec = ret.expect("mach_timespec::from_nanos() parse failed");
+            assert!(spec.is_valid());
+            out.push_str(&format!("spec({spec:#?}) is valid"));
+            let dur = Duration::from_nanos(n as u64);
+
+            assert_eq!(spec, dur);
+            out.push_str(&format!("spec is equal to {:#?}", dur));
+        } else {
+            assert!(ret.is_err());
+            out.push_str(&format!("{n:?} is invalid"));
+        }
+        out
     }
 }

@@ -20,7 +20,9 @@ readme = "README.md"
 keywords = ["kernel", "macos", "darwin", "mach"]
 categories = ["ffi", "api-bindings", "external-ffi-bindings", "no-std", "os"]
 edition = "2021"
-#include = ["src/**/*", "LICENSE-*", "README.md"]
+
+[dev-dependencies]
+fastrand="2.0.0"
 
 [badges]
 maintenance = { status = "passively-maintained" }

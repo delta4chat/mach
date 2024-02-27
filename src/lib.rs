@@ -1,14 +1,47 @@
 #![allow(non_camel_case_types)]
 #![allow(non_upper_case_globals)]
-#![deny(missing_debug_implementations)]
-#![deny(missing_copy_implementations)]
 #![allow(
     clippy::module_name_repetitions,
     clippy::cast_sign_loss,
     clippy::cast_possible_truncation,
     clippy::trivially_copy_pass_by_ref
 )]
-#![no_std]
+
+#![deny(missing_debug_implementations)]
+#![deny(missing_copy_implementations)]
+
+// if not a test, then #![no_std]
+#![cfg_attr(not(test), no_std)]
+
+// if this is a test, define some useful things
+#[cfg(test)]
+mod _test_utils {
+    // if run tests from `cargo test`, this will force disply to stderr
+    #[macro_export]
+    macro_rules! p {
+        ($($args:tt)*) => {{
+            let out = format!( $($args)* );
+            let n =
+                out.lines()
+                .map(|x|{ x.len() })
+                .max().unwrap_or(20);
+
+            let mut stderr = std::io::stderr().lock();
+            writeln!(stderr, "{}", ".".repeat(n)).expect("cannot print to stderr");
+            write!(stderr, "{}", out).expect("cannot print to stderr");
+            writeln!(stderr, "{}", ".".repeat(n)).expect("cannot print to stderr");
+        }};
+    }
+
+    #[macro_export]
+    macro_rules! pl {
+        ($($args:tt)*) => {{
+            let mut s = format!( $($args)* );
+            s.push('\n');
+            $crate::p!("{}", s);
+        }}
+    }
+}
 
 #[cfg(not(target_vendor="apple"))]
 mod _err {
@@ -60,3 +93,5 @@ pub mod vm_region;
 pub mod vm_statistics;
 pub mod vm_sync;
 pub mod vm_types;
+
+
