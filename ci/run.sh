@@ -21,12 +21,10 @@ case "${TARGET}" in
         export RUSTFLAGS="${RUSTFLAGS} -C link-args=-mios-simulator-version-min=7.0"
         rustc ./ci/deploy_and_run_on_ios_simulator.rs -o ios_cargo_runner --verbose
         if [ "${TARGET}" = "x86_64-apple-ios" ]; then
-            export CARGO_TARGET_X86_64_APPLE_IOS_RUNNER
-            CARGO_TARGET_X86_64_APPLE_IOS_RUNNER="$(pwd)/ios_cargo_runner"
+            export CARGO_TARGET_X86_64_APPLE_IOS_RUNNER="$(pwd)/ios_cargo_runner"
         fi
         if [ "${TARGET}" = "i386-apple-ios" ]; then
-            export CARGO_TARGET_I386_APPLE_IOS_RUNNER
-            CARGO_TARGET_I386_APPLE_IOS_RUNNER="$(pwd)/ios_cargo_runner"
+            export CARGO_TARGET_I386_APPLE_IOS_RUNNER="$(pwd)/ios_cargo_runner"
         fi
         ;;
     *)

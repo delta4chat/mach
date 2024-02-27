@@ -20,7 +20,7 @@ jobs:
         target:
           - aarch64-apple-ios
           - aarch64-apple-darwin
-          #- aarch64-apple-ios-sim
+          - aarch64-apple-ios-sim
           #- x86_64-apple-ios
 
     steps:
@@ -43,10 +43,10 @@ jobs:
 
       - name: cross-compile test
         run: |
-          export TARGET=${{ matrix.target }}
+          export TARGET=${{matrix.target}}
           export RUST_VERSION=nightly
-          export NOCTEST=1
-          export NORUN=1
+          #export NOCTEST=1
+          #export NORUN=1
 
           bash ci/run.sh
 
@@ -72,7 +72,7 @@ jobs:
 
       - uses: actions/upload-artifact@v3
         with:
-          name: mach-sys.amd64-mac
+          name: lib-mach-sys.amd64-mac.zip
           path: target/release/libmach*
 
       - name: Upload binary of amd64 mac

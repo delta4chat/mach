@@ -1,2 +1,7 @@
 /target
 /Cargo.lock
+
+#/ci/*/
+/ci/ios_simulator_app/
+/ci/deploy_and_run_on_ios_simulator
+
