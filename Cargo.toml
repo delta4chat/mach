@@ -21,7 +21,7 @@ description = "forked from original mach, and merge from mach2/machx. A Rust int
 repository = "https://github.com/delta4chat/mach"
 readme = "README.md"
 keywords = ["kernel", "macos", "darwin", "mach", "bindings"]
-categories = ["ffi", "api-bindings", "external-ffi-bindings", "no-std", "os"]
+categories = ["api-bindings", "external-ffi-bindings", "no-std", "os"]
 edition = "2021"
 
 [dev-dependencies]
@@ -31,13 +31,27 @@ fastrand="2.0.0"
 maintenance = { status = "passively-maintained" }
 
 [features]
+# there is no default features,
+# and should not to add anything in future.
 default  = []
-unstable = [] # Uses newer APIs (but unstable)
-alloc    = [] # Uses extern crate alloc
-std      = [] # Uses rust standard library
+
+# Uses newer APIs (but unstable)
+unstable = []
+
+# Uses extern crate alloc
+alloc    = ["dep:mcslock", "dep:generic_once_cell"]
+
+# Uses rust standard library
+std      = ["dep:parking_lot", "dep:once_cell"] 
 
 [workspace]
 members = ["mach-test"]
+
+[dependencies]
+generic_once_cell = { optional = true, version = "0.1.1" }
+mcslock = { optional = true, version = "0.1.1", features = ["lock_api"], default-features = false }
+once_cell = { optional = true, version = "1.19.0", features = ["portable-atomic", "race", "parking_lot"] }
+parking_lot = { optional = true, version = "0.12.1", features = ["deadlock_detection"] }
 
 [package.metadata.docs.rs]
 default-target = "x86_64-apple-darwin"
