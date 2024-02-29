@@ -1,6 +1,4 @@
-# mach-sys
-
-[![Latest Version]][crates.io] [![docs]][docs.rs]
+# mach-sys: forked from original "mach", and merge from "mach2" & "machx".
 
 A Rust interface to the **user-space** API of the Mach 3.0 kernel exposed in
 `/usr/include/mach` that underlies macOS and is linked via `libSystem` (and
@@ -15,6 +13,12 @@ kernel extensions you have to use something else. The user-space kernel API is
 often API-incompatible with the kernel space one, and even in the cases where
 they match, they are sometimes ABI incompatible such that using this library
 would have **undefined behavior**.
+
+```
+(notes from machx developers:)
+1. due to the lack of maintenance of `mach2` and `mach`, a lot of APIs are missing, so I maintain this version for my own use.
+2. via bindgen as well as manual fixes.
+```
 
 ## Usage
 

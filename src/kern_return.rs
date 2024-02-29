@@ -4,8 +4,11 @@
 
 use core::ffi::c_int;
 
-// ...Except for this particular type, which is taken from `mach/i386/kern_return.h` and
-// `mach/arm/kern_return.h` (also used for aarch64): it is the same type in both header files.
+// ...Except for this particular type, which is taken from
+// 1. `mach/i386/kern_return.h` (x86-based CPUs).
+// 2. `mach/arm/kern_return.h`  (arm-based CPUs).
+// 
+// it is the same type in both header files.
 pub type kern_return_t = c_int;
 
 #[derive(
@@ -68,8 +71,14 @@ pub enum KERN_RETURN {
     KERN_POLICY_STATIC,
     KERN_RETURN_MAX,
 }
+impl Display for KERN_RETURN {
+}
 
 impl KERN_RETURN {
+    pub const fn stringify(&self) -> String {
+        format!("{self:?}")
+    }
+
     pub const fn to_int(&self) -> kern_return_t {
         match self {
             Self::KERN_SUCCESS                => 0,
@@ -206,7 +215,17 @@ macro_rules! _from_int_impl {
     }
 }
 
-//_from_int_impl!(kern_return_t);
+
+// _from_int_impl!(kern_return_t);
+//
+// NOTE: this is not required, due to `kern_return_t` always equal to c_int = i32.
+// 
+//      (even in future, if 32-bit CPUs has deprecated completely...)
+//      (so 32-bit no long exists in the IT world, c_int changed to i64, this case will be covered.)
+//
+//      (in fact it works in all type of integer that Rust-supprted.)
+//      (so if one day, may or may not happen: in far future, if all CPUs has been replaced by 128-bit, it also supported.)
+//
 
 _from_int_impl!(usize); _from_int_impl!(isize);
 _from_int_impl!(u8);    _from_int_impl!(i8);
@@ -296,7 +315,7 @@ mod _a128 {
 }
 */
 
-/* this provide compatible */
+/* this provide compatible for programs that early-written before the OOP changes */
 
 pub const KERN_SUCCESS: kern_return_t =
     KERN_RETURN::KERN_SUCCESS.to_int();

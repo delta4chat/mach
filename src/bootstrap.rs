@@ -31,6 +31,28 @@ pub type cmd_t        = [c_char; 512];
 pub type bool_array_t = *mut boolean_t;
 
 pub type name_t       = [c_char; 128];
+
+pub const BOOTSTRAP_MAX_NAME_LEN:     c_uint = 128;
+pub const BOOTSTRAP_MAX_CMD_LEN:      c_uint = 512;
+
+pub const BOOTSTRAP_MAX_LOOKUP_COUNT: c_uint = 20;
+
+pub const BOOTSTRAP_SUCCESS:          c_uint = 0;
+pub const BOOTSTRAP_NOT_PRIVILEGED:   c_uint = 1100;
+pub const BOOTSTRAP_NAME_IN_USE:      c_uint = 1101;
+pub const BOOTSTRAP_UNKNOWN_SERVICE:  c_uint = 1102;
+pub const BOOTSTRAP_SERVICE_ACTIVE:   c_uint = 1103;
+pub const BOOTSTRAP_BAD_COUNT:        c_uint = 1104;
+pub const BOOTSTRAP_NO_MEMORY:        c_uint = 1105;
+pub const BOOTSTRAP_NO_CHILDREN:      c_uint = 1106;
+
+pub const BOOTSTRAP_STATUS_INACTIVE:  c_uint = 0;
+pub const BOOTSTRAP_STATUS_ACTIVE:    c_uint = 1;
+pub const BOOTSTRAP_STATUS_ON_DEMAND: c_uint = 2;
+
+pub type name_t = [c_char; 128];
+pub type cmd_t  = [c_char; 512];
+
 pub type name_array_t = *mut name_t;
 
 pub type bootstrap_status_t         = c_int;

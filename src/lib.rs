@@ -1,5 +1,6 @@
 #![allow(non_camel_case_types)]
 #![allow(non_upper_case_globals)]
+
 #![allow(
     clippy::module_name_repetitions,
     clippy::cast_sign_loss,
@@ -56,13 +57,14 @@ pub mod bootstrap;
 pub mod clock;
 pub mod clock_priv;
 pub mod clock_reply;
-pub mod clock_types; // TODO: test
-pub mod dyld;
+pub mod clock_types;
+
 pub mod dyld_kernel;
-// pub mod error; // TODO
+pub mod error;
 pub mod exc;
 pub mod exception_types;
 pub mod kern_return;
+
 pub mod loader;
 pub mod mach_init;
 pub mod mach_port;
@@ -94,4 +96,10 @@ pub mod vm_statistics;
 pub mod vm_sync;
 pub mod vm_types;
 
+// added by machx
+pub mod dyld;
+pub mod dlfcn;
+pub mod dyld_images;
+pub mod libproc;
+pub mod nlist;
 

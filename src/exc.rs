@@ -1,7 +1,5 @@
 //! This module roughly corresponds to `mach/exc.h`.
 
-#![allow(dead_code, non_snake_case)]
-
 use core::ffi::{c_uint, c_int};
 
 use crate::exception_types::{exception_data_t, exception_type_t};

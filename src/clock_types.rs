@@ -16,6 +16,10 @@ pub const SYSTEM_CLOCK:   c_uint = 0;
 pub const CALENDAR_CLOCK: c_uint = 1;
 pub const REALTIME_CLOCK: c_uint = 0;
 
+pub const ALRMTYPE:       c_uint = 0xff;
+pub const TIME_ABSOLUTE:  c_uint = 0x00;
+pub const TIME_RELATIVE:  c_uint = 0x01;
+
 pub const CLOCK_GET_TIME_RES: c_uint = 1;
 pub const CLOCK_ALARM_CURRES: c_uint = 3;
 pub const CLOCK_ALARM_MINRES: c_uint = 4;
@@ -26,6 +30,13 @@ pub const NSEC_PER_SEC:  c_ulonglong = 1_000_000_000;
 
 pub const NSEC_PER_USEC: c_ulonglong = 1_000;
 pub const NSEC_PER_MSEC: c_ulonglong = 1_000_000;
+
+#[repr(C)]
+#[derive(Copy, Clone, Debug, Default, Hash)]
+pub struct time_value_t {
+    pub seconds: integer_t,
+    pub microseconds: integer_t,
+}
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash)]
@@ -346,10 +357,6 @@ pub fn SUB_MACH_TIMESPEC(
     *t1 = mach_timespec::sub(t1, t2);
 }
 
-pub const ALRMTYPE:      c_uint = 0xff;
-pub const TIME_ABSOLUTE: c_uint = 0x00;
-pub const TIME_RELATIVE: c_uint = 0x01;
-
 #[allow(non_snake_case)]
 pub const fn BAD_ALRMTYPE(t: c_uint) -> bool {
     ( t & (!TIME_RELATIVE) ) != 0
@@ -401,3 +408,4 @@ mod test {
         out
     }
 }
+

@@ -1,6 +1,6 @@
 [package]
 name = "mach-sys"
-version = "0.4.4"
+version = "0.5.0"
 authors = [
   # authors of original "mach"
   "Nick Fitzgerald <fitzgen@gmail.com>",
@@ -10,6 +10,9 @@ authors = [
   # authors of "mach2"
   "Yuki Okushi <jtitor@skiff.com>",
 
+  # authors of "machx"
+  "kekeimiku <kekelanact@gmail.com>",
+
   # :-)
   "Delta4 <delta4chat@gmx.com>"
 ]
@@ -17,7 +20,7 @@ license = "BSD-2-Clause OR MIT OR Apache-2.0"
 description = "forked from original mach, and merge from mach2/machx. A Rust interface to the user-space API of the Mach 3.0 kernel that underlies OSX."
 repository = "https://github.com/delta4chat/mach"
 readme = "README.md"
-keywords = ["kernel", "macos", "darwin", "mach"]
+keywords = ["kernel", "macos", "darwin", "mach", "bindings"]
 categories = ["ffi", "api-bindings", "external-ffi-bindings", "no-std", "os"]
 edition = "2021"
 
@@ -28,9 +31,9 @@ fastrand="2.0.0"
 maintenance = { status = "passively-maintained" }
 
 [features]
-default = []
-# Uses newer APIs
-unstable = []
+default  = []
+unstable = [] # Uses newer APIs (but unstable)
+alloc    = [] # Uses extern crate alloc
 
 [workspace]
 members = ["mach-test"]

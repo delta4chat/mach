@@ -12,7 +12,7 @@ pub const clock_MSG_COUNT: c_uint = 3;
 extern "C" {
     pub fn clock_get_time(
         clock_serv: clock_serv_t,
-        cur_time:   *mut mach_timespec_t,
+        cur_time:   *mut mach_timespec_t
     ) -> kern_return_t;
 
     pub fn clock_get_attributes(

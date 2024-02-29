@@ -7,6 +7,7 @@ use crate::port::{mach_port_name_t, mach_port_t};
 
 extern "C" {
     static mach_task_self_: mach_port_t;
+
     pub fn task_for_pid(
         target_tport: mach_port_name_t,
         pid:          c_int,
@@ -14,13 +15,42 @@ extern "C" {
     ) -> kern_return_t;
 }
 
-#[allow(clippy::missing_safety_doc)] // FIXME
+#[cfg(feature = "alloc")]
+pub mod sync {
+    extern crate alloc;
+    use alloc::sync::Arc;
+
+    #[cfg(feature = "std")]
+    use parking_lot;
+    #[cfg(feature = "std")]
+    static _MUTEX_STD: Arc<parking_lot::Mutex<()>> = Arc::new(Mutex::new(()));
+
+    #[cfg(not(feature = "std"))]
+    use mcslock::raw::spins;
+    #[cfg(not(feature = "std"))]
+    static _MUTEX_MCS: Arc<spins::Mutex<()>> = Arc::new(spins::Mutex::new(()));
+
+    pub fn mach_task_self() -> mach_port_t {
+        let guard = {
+            #[cfg(feature = "std")]
+            _MUTEX_STD.lock()
+
+            #[cfg(not(feature = "std")]
+            _MUTEX_MCS.lock(&mut spins::Node::new())
+        };
+
+        /// SAFETY: Mutex lock for any access operations
+        unsafe { mach_task_self_ }
+
+        // guard dropping here.
+    }
+}
+
 pub unsafe fn mach_task_self() -> mach_port_t {
     mach_task_self_
 }
 
-#[allow(clippy::missing_safety_doc)] // FIXME
-pub unsafe fn current_task() -> mach_port_t {
+pub fn current_task() -> mach_port_t {
     mach_task_self()
 }
 
@@ -38,3 +68,4 @@ mod tests {
         }
     }
 }
+

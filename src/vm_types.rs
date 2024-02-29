@@ -1,4 +1,5 @@
-//! This module roughly corresponds to `mach/i386/vm_types.h` and `mach/arm/vm_types.h` on aarch64.
+//! This module roughly corresponds to `mach/i386/vm_types.h` (on amd64)
+//! and `mach/arm/vm_types.h` (on aarch64).
 
 use core::ffi::{c_uint, c_int};
 type uintptr_t = usize; // in all platforms, `uintptr_t` is equiv to `usize`

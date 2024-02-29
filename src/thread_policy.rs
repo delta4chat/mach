@@ -100,8 +100,8 @@ pub struct thread_throughput_qos_policy_t {
     pub thread_throughput_qos_tier: thread_throughput_qos_t,
 }
 pub type thread_throughput_qos_t = integer_t;
-pub type thread_throughput_qos_policy        = thread_throughput_qos_policy_t;
-pub type thread_throughput_qos_policy_data_t = thread_throughput_qos_policy_t;
+pub type thread_throughput_qos_policy         = thread_throughput_qos_policy_t;
+pub type thread_throughput_qos_policy_data_t  = thread_throughput_qos_policy_t;
 pub const THREAD_THROUGHPUT_QOS_POLICY_COUNT: mach_msg_type_number_t =
     ( size_of::<thread_throughput_qos_policy_t>() / size_of::<integer_t>() ) as _;
 

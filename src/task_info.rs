@@ -8,24 +8,32 @@ use crate::vm_types::{
     natural_t,
     mach_vm_address_t,
     mach_vm_size_t,
+    natual_t,
 };
 use crate::message::mach_msg_type_number_t;
 
 pub const TASK_INFO_MAX:       c_uint = 1024;
 pub const TASK_BASIC_INFO_32:  c_uint = 4;
-pub const TASK_BASIC2_INFO_32: c_uint = 6;
+pub const TASK_BASIC2_INFO_32: c_uint = 6; // what is this means?
+
+pub mod x86 {
+    pub const TASK_BASIC_INFO_64: c_uint = 5;
+}
+pub mod arm {
+    pub const TASK_BASIC_INFO_64: c_uint = 18;
+}
 
 #[cfg(target_arch = "x86_64")]
-pub const TASK_BASIC_INFO_64:  c_uint = 5;
+pub use x86::*;
 
 #[cfg(target_arch = "aarch64")]
-pub const TASK_BASIC_INFO_64:  c_uint = 18;
+pub use arm::*;
 
 #[cfg(target_pointer_width = "32")]
-pub const TASK_BASIC_INFO: c_uint = TASK_BASIC_INFO_32;
+pub use TASK_BASIC_INFO_32 as TASK_BASIC_INFO;
 
 #[cfg(target_pointer_width = "64")]
-pub const TASK_BASIC_INFO: c_uint = TASK_BASIC_INFO_64;
+pub use TASK_BASIC_INFO_64 as TASK_BASIC_INFO;
 
 pub const TASK_EVENTS_INFO:               c_uint = 2;
 pub const TASK_THREAD_TIMES_INFO:         c_uint = 3;
@@ -49,13 +57,13 @@ pub const TASK_VM_INFO_PURGEABLE_ACCOUNT: c_uint = 27;
 pub const TASK_FLAGS_INFO:                c_uint = 28;
 pub const TASK_DEBUG_INFO_INTERNAL:       c_uint = 29;
 
-pub type task_flavor_t = natural_t;
-pub type task_info_t   = *mut integer_t;
+pub type task_info_t    = *mut integer_t;
+pub type task_flavor_t  = natural_t;
 
-pub type task_vm_info_t = task_vm_info_rev5_t;
-pub type task_vm_info   = task_vm_info_t;
+pub type task_vm_info_t          =  task_vm_info_rev5_t;
+pub type task_vm_info            =  task_vm_info_t;
+pub use  TASK_VM_INFO_REV5_COUNT as TASK_VM_INFO_COUNT;
 
-pub const TASK_VM_INFO_COUNT:      mach_msg_type_number_t = TASK_VM_INFO_REV5_COUNT;
 pub const TASK_VM_INFO_REV5_COUNT: mach_msg_type_number_t = (size_of::<task_vm_info_rev5_t>() / size_of::<natural_t>() ) as _;
 pub const TASK_VM_INFO_REV4_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV5_COUNT - 1;
 pub const TASK_VM_INFO_REV3_COUNT: mach_msg_type_number_t = TASK_VM_INFO_REV4_COUNT - 2;
@@ -451,9 +459,11 @@ pub struct task_vm_info_rev5_t {
     PartialOrd, Ord,
     PartialEq, Eq,
 )]
-pub struct task_dyld_info {
+pub struct task_dyld_info_t {
     pub all_image_info_addr:   mach_vm_address_t,
     pub all_image_info_size:   mach_vm_size_t,
     pub all_image_info_format: integer_t,
 }
+pub type task_dyld_info        = task_dyld_info_t;
+pub type task_dyld_info_data_t = task_dyld_info_t;
 

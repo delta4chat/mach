@@ -1,11 +1,15 @@
 //! This module corresponds to `mach/thread_status.h`.
 
-use core::ffi::c_int;
+use core::ffi::{c_int, c_uint};
 
 use crate::vm_types::natural_t;
 
-pub type thread_state_t        = *mut natural_t;
-pub type thread_state_flavor_t = c_int;
+pub type thread_state_t = *mut natural_t;
+
+#[cfg(feature = "unstable")]
+pub type thread_state_flavor_t = c_uint; // from (modified) machx
+#[cfg(not(feature = "unstable"))]
+pub type thread_state_flavor_t = c_int;  // from (original) mach
 
 /* List of valid flavors */
 // TODO check if this type correct (compare from original C code)
@@ -95,8 +99,8 @@ pub mod x86 {
 }
 
 #[cfg(target_arch = "aarch64")]
-pub use self::arm::*;
+pub use arm::*;
 
 #[cfg(any(target_arch = "x86", target_arch = "x86_64"))]
-pub use self::x86::*;
+pub use x86::*;
 

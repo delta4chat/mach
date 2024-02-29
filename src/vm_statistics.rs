@@ -35,26 +35,34 @@ pub const VM_MEMORY_DYLD_MALLOC:             c_uint = 61;
 pub const VM_MEMORY_APPLICATION_SPECIFIC_1:  c_uint = 240;
 pub const VM_MEMORY_APPLICATION_SPECIFIC_16: c_uint = 255;
 
+pub const VM_MEMORY_REALLOC:                 c_uint = 6;
+pub const VM_MEMORY_MALLOC_TINY:             c_uint = 7;
+pub const VM_MEMORY_MALLOC_LARGE_REUSABLE:   c_uint = 8;
+pub const VM_MEMORY_MALLOC_LARGE_REUSED:     c_uint = 9;
+pub const VM_MEMORY_MALLOC_NANO:             c_uint = 11;
+
 pub const VM_FLAGS_FIXED:     c_int = 0x0;
 pub const VM_FLAGS_ANYWHERE:  c_int = 0x1;
 pub const VM_FLAGS_OVERWRITE: c_int = 0x4000;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
-pub struct vm_statistics {
-    pub free_count: natural_t,
-    pub active_count: natural_t,
-    pub inactive_count: natural_t,
-    pub wire_count: natural_t,
-    pub zero_fill_count: natural_t,
-    pub reactivations: natural_t,
-    pub pageins: natural_t,
-    pub pageouts: natural_t,
-    pub faults: natural_t,
-    pub cow_faults: natural_t,
-    pub lookups: natural_t,
-    pub hits: natural_t,
-    pub purgeable_count: natural_t,
-    pub purges: natural_t,
+pub struct vm_statistics_t {
+    pub free_count:        natural_t,
+    pub active_count:      natural_t,
+    pub inactive_count:    natural_t,
+    pub wire_count:        natural_t,
+    pub zero_fill_count:   natural_t,
+    pub reactivations:     natural_t,
+    pub pageins:           natural_t,
+    pub pageouts:          natural_t,
+    pub faults:            natural_t,
+    pub cow_faults:        natural_t,
+    pub lookups:           natural_t,
+    pub hits:              natural_t,
+    pub purgeable_count:   natural_t,
+    pub purges:            natural_t,
     pub speculative_count: natural_t,
 }
+pub type vm_statistics = vm_statistics_t;
+

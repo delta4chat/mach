@@ -1,6 +1,7 @@
 //! This module roughly corresponds to `mach/mach_vm.defs`.
 
 use core::ffi::c_int;
+type policy_t = c_int; // in all apple/darwin platforms, type `policy_t` is equiv to `c_int`.
 
 use crate::boolean::boolean_t;
 use crate::kern_return::kern_return_t;
@@ -31,6 +32,7 @@ use crate::vm_region::{
     vm_region_recurse_info_t,
 };
 use crate::vm_sync::vm_sync_t;
+use crate::clock_types::time_value_t;
 use crate::vm_types::{
     integer_t,
     mach_vm_address_t,
@@ -218,9 +220,25 @@ extern "C" {
     ) -> kern_return_t;
 }
 
+pub type thread_basic_info_data = thread_basic_info_t;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub struct thread_basic_info_t {
+    pub user_time:     time_value_t,
+    pub system_time:   time_value_t,
+    pub cpu_usage:     integer_t,
+    pub policy:        policy_t,
+    pub run_state:     integer_t,
+    pub flags:         integer_t,
+    pub suspend_count: integer_t,
+    pub sleep_time:    integer_t,
+}
+
 #[cfg(test)]
 mod tests {
     use super::*;
+
     use crate::kern_return::KERN_SUCCESS;
     use crate::traps::mach_task_self;
     use crate::vm_statistics::VM_FLAGS_ANYWHERE;
@@ -232,10 +250,7 @@ mod tests {
             let task = mach_task_self();
 
             let mut address: mach_vm_address_t = 0;
-            assert_eq!(
-                mach_vm_allocate(task, &mut address, size, VM_FLAGS_ANYWHERE),
-                KERN_SUCCESS
-            );
+            assert_eq!(mach_vm_allocate(task, &mut address, size, VM_FLAGS_ANYWHERE), KERN_SUCCESS);
             assert_eq!(mach_vm_deallocate(task, address, size), KERN_SUCCESS);
         }
     }
@@ -243,11 +258,14 @@ mod tests {
     #[test]
     fn mach_vm_region_sanity() {
         use core::mem;
+
         use crate::vm_prot::{VM_PROT_EXECUTE, VM_PROT_READ};
         use crate::vm_region::{vm_region_basic_info_64, VM_REGION_BASIC_INFO_64};
+
         unsafe {
             let mut size = 0x10;
             let mut object_name = 0;
+            #[allow(clippy::fn_to_numeric_cast)]
             let mut address = mach_vm_region_sanity as mach_vm_address_t;
             let mut info: vm_region_basic_info_64 = mem::zeroed();
             let mut info_size = vm_region_basic_info_64::count();
