@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/port.h`
 
-use core::ffi::c_uint;
+use crate::ffi::c_uint;
 
 use crate::vm_types::{integer_t, natural_t};
 

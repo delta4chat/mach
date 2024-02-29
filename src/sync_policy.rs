@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/sync_policy.h`
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 pub type sync_policy_t = c_int;
 

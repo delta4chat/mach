@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/mach_traps.h`.
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 use crate::kern_return::kern_return_t;
 use crate::port::{mach_port_name_t, mach_port_t};
@@ -31,13 +31,11 @@ pub mod sync {
     static _MUTEX_MCS: Arc<spins::Mutex<()>> = Arc::new(spins::Mutex::new(()));
 
     pub fn mach_task_self() -> mach_port_t {
-        let guard = {
-            #[cfg(feature = "std")]
-            _MUTEX_STD.lock()
+        #[cfg(feature = "std")]
+        let _guard = _MUTEX_STD.lock();
 
-            #[cfg(not(feature = "std")]
-            _MUTEX_MCS.lock(&mut spins::Node::new())
-        };
+        #[cfg(not(feature = "std"))]
+        let _guard = _MUTEX_MCS.lock(&mut spins::Node::new());
 
         /// SAFETY: Mutex lock for any access operations
         unsafe { mach_task_self_ }

@@ -2,7 +2,7 @@
 
 #![allow(non_camel_case_types)]
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 // ...Except for this particular type, which is taken from
 // 1. `mach/i386/kern_return.h` (x86-based CPUs).
@@ -71,13 +71,17 @@ pub enum KERN_RETURN {
     KERN_POLICY_STATIC,
     KERN_RETURN_MAX,
 }
+/*
 impl Display for KERN_RETURN {
 }
+*/
 
 impl KERN_RETURN {
+    /*
     pub const fn stringify(&self) -> String {
         format!("{self:?}")
     }
+    */
 
     pub const fn to_int(&self) -> kern_return_t {
         match self {

@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/vm_prot.h`.
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 pub type vm_prot_t = c_int;
 

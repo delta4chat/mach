@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/semaphore.h`
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 use crate::clock_types::mach_timespec_t;
 use crate::kern_return::kern_return_t;

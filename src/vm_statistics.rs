@@ -1,11 +1,8 @@
 //! This module roughly corresponds to `mach/vm_statistics.h`
 
-use core::ffi::{c_uint, c_int};
+use crate::ffi::{c_uint, c_int};
 
 use crate::vm_types::{integer_t, natural_t};
-
-pub type vm_statistics_t      = *mut vm_statistics;
-pub type vm_statistics_data_t = vm_statistics;
 
 pub const VM_PAGE_QUERY_PAGE_PRESENT:    integer_t = 1;
 pub const VM_PAGE_QUERY_PAGE_FICTITIOUS: integer_t = 1 << 1;
@@ -47,7 +44,7 @@ pub const VM_FLAGS_OVERWRITE: c_int = 0x4000;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
-pub struct vm_statistics_t {
+pub struct vm_statistics {
     pub free_count:        natural_t,
     pub active_count:      natural_t,
     pub inactive_count:    natural_t,
@@ -64,5 +61,6 @@ pub struct vm_statistics_t {
     pub purges:            natural_t,
     pub speculative_count: natural_t,
 }
-pub type vm_statistics = vm_statistics_t;
+pub type vm_statistics_t      = *mut vm_statistics;
+pub type vm_statistics_data_t = vm_statistics;
 

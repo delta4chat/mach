@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/message.h`.
 
-use core::ffi::{c_uint, c_void};
+use crate::ffi::{c_uint, c_void};
 
 use crate::kern_return::kern_return_t;
 use crate::port::{mach_port_name_t, mach_port_seqno_t, mach_port_t};

@@ -1,9 +1,9 @@
 //! This module corresponds to `mach/task.h`.
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 use crate::boolean::boolean_t;
-use crate::vm_types::{natual_t, integer_t};
+use crate::vm_types::{natural_t, integer_t};
 use crate::kern_return::kern_return_t;
 use crate::mach_types::{
     task_name_t,
@@ -14,7 +14,7 @@ use crate::mach_types::{
 use crate::message::mach_msg_type_number_t;
 use crate::port::{mach_port_array_t, mach_port_t};
 use crate::task_info::{task_flavor_t, task_info_t};
-use crate::thread_status::{thread_state_flavor_t, thread_state_t},
+use crate::thread_status::{thread_state_flavor_t, thread_state_t};
 
 pub type task_special_port_t  = c_int;
 

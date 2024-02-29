@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/vm_purgable.h`.
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 pub type vm_purgable_t = c_int;
 

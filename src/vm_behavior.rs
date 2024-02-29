@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/vm_behavior.h`.
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 pub type vm_behavior_t = c_int;
 

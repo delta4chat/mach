@@ -1,7 +1,7 @@
 //! This module roughly corresponds to `mach/vm_region.h`.
 
 use core::mem::size_of;
-use core::ffi::{c_int, c_uint, c_uchar, c_ushort};
+use crate::ffi::{c_int, c_uint, c_uchar, c_ushort};
 
 use crate::boolean::boolean_t;
 use crate::memory_object_types::{memory_object_offset_t, vm_object_id_t};

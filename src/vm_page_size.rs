@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/vm_page_size.h`
 
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 use crate::vm_types::{mach_vm_offset_t, mach_vm_size_t, vm_size_t};
 

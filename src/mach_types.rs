@@ -1,7 +1,6 @@
 //! This module corresponds to `mach/mach_types.h`
 
-use core::ffi::{c_uchar, c_ulong};
-type clock_t = c_ulong; // in all apple/darwin platforms, type `clock_t` is equiv to `c_ulong`.
+use crate::ffi::{c_uchar, c_ulong, clock_t};
 
 use crate::port::mach_port_t;
 

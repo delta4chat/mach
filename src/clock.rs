@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/clock.h`.
 
-use core::ffi::c_uint;
+use crate::ffi::c_uint;
 
 use crate::clock_types::{alarm_type_t, clock_attr_t, clock_flavor_t, mach_timespec_t};
 use crate::kern_return::kern_return_t;

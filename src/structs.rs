@@ -1,7 +1,7 @@
 //! This module corresponds to `mach/i386/_structs.h` and `mach/arm/_structs.h`.
 
 use core::mem::size_of;
-use core::ffi::c_int;
+use crate::ffi::c_int;
 
 use crate::message::mach_msg_type_number_t;
 
@@ -20,6 +20,8 @@ pub use x86::*;
  */
 
 pub mod arm {
+    use super::mach_msg_type_number_t;
+
     #[repr(C)]
     #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
     pub struct arm_state_hdr_t {
@@ -29,7 +31,7 @@ pub mod arm {
     pub type   arm_state_hdr = arm_state_hdr_t;
 
     #[repr(C)]
-    #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
+    #[derive(Copy, Clone, Debug, Default, Hash)]
     pub struct arm_unified_thread_state_t {
         pub ash: arm_state_hdr_t,
         pub uts: arm_unified_thread_state__bindgen_ty_1,
@@ -56,7 +58,6 @@ pub mod arm {
     }
 
     #[repr(C)]
-    #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
     pub union arm_thread_state32or64_t {
         pub ts_32: arm_thread_state32_t,
         pub ts_64: arm_thread_state64_t,
@@ -128,6 +129,8 @@ pub mod arm {
 }
 
 pub mod x86 {
+    use super::mach_msg_type_number_t;
+
     #[repr(C)]
     #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
     pub struct x86_thread_state64_t {

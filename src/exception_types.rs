@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/exception_types.h`.
 
-use core::ffi::{c_uint, c_int};
+use crate::ffi::{c_uint, c_int};
 
 use crate::port::mach_port_t;
 use crate::vm_types::integer_t;

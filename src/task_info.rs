@@ -1,14 +1,13 @@
 //! This module roughly corresponds to `mach/task_info.h`.
 
 use core::mem::size_of;
-use core::ffi::c_uint;
+use crate::ffi::c_uint;
 
 use crate::vm_types::{
     integer_t,
     natural_t,
     mach_vm_address_t,
     mach_vm_size_t,
-    natual_t,
 };
 use crate::message::mach_msg_type_number_t;
 
@@ -17,10 +16,10 @@ pub const TASK_BASIC_INFO_32:  c_uint = 4;
 pub const TASK_BASIC2_INFO_32: c_uint = 6; // what is this means?
 
 pub mod x86 {
-    pub const TASK_BASIC_INFO_64: c_uint = 5;
+    pub const TASK_BASIC_INFO_64: super::c_uint = 5;
 }
 pub mod arm {
-    pub const TASK_BASIC_INFO_64: c_uint = 18;
+    pub const TASK_BASIC_INFO_64: super::c_uint = 18;
 }
 
 #[cfg(target_arch = "x86_64")]

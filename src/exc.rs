@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/exc.h`.
 
-use core::ffi::{c_uint, c_int};
+use crate::ffi::*;
 
 use crate::exception_types::{exception_data_t, exception_type_t};
 use crate::kern_return::kern_return_t;

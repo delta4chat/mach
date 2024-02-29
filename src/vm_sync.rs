@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/vm_sync.h`.
 
-use core::ffi::c_uint;
+use crate::ffi::c_uint;
 
 pub type vm_sync_t = c_uint;
 

@@ -10,6 +10,7 @@ use crate::port::{
     mach_port_options_t,
     mach_port_right_t,
     mach_port_t,
+};
 
 extern "C" {
     pub fn mach_port_allocate(

@@ -1,7 +1,6 @@
 //! This module roughly corresponds to `mach/mach_vm.defs`.
 
-use core::ffi::c_int;
-type policy_t = c_int; // in all apple/darwin platforms, type `policy_t` is equiv to `c_int`.
+use crate::ffi::{c_int, policy_t};
 
 use crate::boolean::boolean_t;
 use crate::kern_return::kern_return_t;

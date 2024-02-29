@@ -2,7 +2,7 @@
 
 #![allow(unused_imports)]
 
-use core::ffi::{c_uint, c_int};
+use crate::ffi::{c_uint, c_int};
 
 #[cfg(target_arch = "x86_64")]
 pub type boolean_t = c_uint;

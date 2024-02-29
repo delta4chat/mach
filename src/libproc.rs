@@ -1,35 +1,39 @@
 //! This module roughly corresponds to `libproc.h`.
 
-use super::{
-    kern_return::kern_return_t,
-    vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t},
+use crate::ffi::*;
+
+use crate::kern_return::kern_return_t;
+use crate::vm_types::{
+    integer_t,
+    mach_vm_address_t,
+    mach_vm_size_t,
 };
 
-pub const PROC_PIDPATHINFO_MAXSIZE: ::libc::c_uint = 4096;
+pub const PROC_PIDPATHINFO_MAXSIZE: c_uint = 4096;
 pub const PROC_ALL_PIDS: u32 = 1;
 
 extern "C" {
-    pub fn proc_pidpath(pid: ::libc::pid_t, buffer: *mut ::libc::c_void, buffersize: ::libc::c_uint) -> kern_return_t;
+    pub fn proc_pidpath(pid: pid_t, buffer: *mut c_void, buffersize: c_uint) -> kern_return_t;
     pub fn proc_regionfilename(
-        pid: ::libc::pid_t,
-        address: ::libc::c_ulong,
-        buffer: *mut ::libc::c_void,
-        buffersize: ::libc::c_uint,
+        pid: pid_t,
+        address: c_ulong,
+        buffer: *mut c_void,
+        buffersize: c_uint,
     ) -> kern_return_t;
     pub fn proc_pidinfo(
-        pid: ::libc::c_int,
-        flavor: ::libc::c_int,
+        pid: c_int,
+        flavor: c_int,
         arg: u64,
-        buffer: *mut ::libc::c_void,
-        buffersize: ::libc::c_int,
-    ) -> ::libc::c_int;
+        buffer: *mut c_void,
+        buffersize: c_int,
+    ) -> c_int;
     pub fn proc_listpids(
         type_: u32,
         typeinfo: u32,
-        buffer: *mut ::libc::c_void,
-        buffersize: ::libc::c_int,
-    ) -> ::libc::c_int;
-    pub fn proc_listallpids(buffer: *mut ::libc::c_void, buffersize: ::libc::c_int) -> ::libc::c_int;
+        buffer: *mut c_void,
+        buffersize: c_int,
+    ) -> c_int;
+    pub fn proc_listallpids(buffer: *mut c_void, buffersize: c_int) -> c_int;
 }
 
 #[repr(C)]

@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/vm_attributes.h`.
 
-use core::ffi::{c_uint, c_int};
+use crate::ffi::{c_uint, c_int};
 
 pub type vm_machine_attribute_t     = c_uint;
 pub type vm_machine_attribute_val_t = c_int;

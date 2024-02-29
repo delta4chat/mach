@@ -1,7 +1,6 @@
 //! This module roughly corresponds to `mach-o/dyld.h`.
 
-use core::ffi::c_char;
-type intptr_t = isize; // in all platforms, `intptr_t` equiv to `isize`
+use crate::ffi::{c_char, intptr_t};
 
 use crate::loader::mach_header;
 

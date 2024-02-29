@@ -1,6 +1,6 @@
 //! This module roughly corresponds to `mach/ndr.h`.
 
-use core::ffi::c_uchar;
+use crate::ffi::*;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]

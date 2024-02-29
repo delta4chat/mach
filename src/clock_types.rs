@@ -1,9 +1,11 @@
 //! This module roughly corresponds to `mach/clock_types.h`.
 
-use core::ffi::{c_int, c_uint, c_ulonglong};
+use crate::ffi::{c_int, c_uint, c_ulonglong};
 use core::ops::{Add, Sub, AddAssign, SubAssign};
 use core::cmp::Ordering;
 use core::time::Duration;
+
+use crate::vm_types::integer_t;
 
 pub type alarm_type_t   = c_int;
 pub type sleep_type_t   = c_int;

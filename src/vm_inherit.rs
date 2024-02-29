@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/vm_inherit.h`.
 
-use core::ffi::c_uint;
+use crate::ffi::c_uint;
 
 pub type vm_inherit_t = c_uint;
 
