@@ -86,3 +86,6 @@ jobs:
           git switch master
           git reset --hard ${{github.sha}}
 
+      - name: Run tests
+        run: |
+          make test

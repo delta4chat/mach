@@ -14,8 +14,8 @@
 // why rust does not have this?
 //#![deny(missing_clone_implementations)]
 
-// if not a test, then #![no_std]
-#![cfg_attr(all(not(test), features="std"), no_std)]
+// by default #![no_std] is set (unless the std feature enabled)
+#![cfg_attr(features = "std", no_std)]
 
 // if this is a test, define some useful things
 #[cfg(test)]
