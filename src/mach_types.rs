@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/mach_types.h`
 
-use crate::ffi::{c_uchar, c_ulong, clock_t};
+use crate::ffi::{c_uchar, clock_t};
 
 use crate::port::mach_port_t;
 

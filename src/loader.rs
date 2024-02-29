@@ -5,7 +5,6 @@ use crate::ffi::{
     cpu_type_t,
     cpu_subtype_t,
 };
-use crate::vm_types::integer_t;
 
 #[repr(C)]
 #[allow(dead_code, non_snake_case)]

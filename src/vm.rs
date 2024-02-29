@@ -222,7 +222,7 @@ extern "C" {
 pub type thread_basic_info_data = thread_basic_info_t;
 
 #[repr(C)]
-#[derive(Copy, Clone)]
+#[derive(Copy, Clone, Debug, PartialEq, Eq, Hash)]
 pub struct thread_basic_info_t {
     pub user_time:     time_value_t,
     pub system_time:   time_value_t,

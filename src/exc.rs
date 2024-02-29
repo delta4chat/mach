@@ -1,5 +1,7 @@
 //! This module roughly corresponds to `mach/exc.h`.
 
+#![allow(non_snake_case)]
+
 use crate::ffi::*;
 
 use crate::exception_types::{exception_data_t, exception_type_t};

@@ -48,7 +48,7 @@ pub unsafe fn mach_task_self() -> mach_port_t {
     mach_task_self_
 }
 
-pub fn current_task() -> mach_port_t {
+pub unsafe fn current_task() -> mach_port_t {
     mach_task_self()
 }
 

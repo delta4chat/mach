@@ -1,5 +1,8 @@
 //! This module roughly corresponds to `mach-o/nlist.h`.
 
+// because cannot impl Debug for union types.
+#![allow(missing_debug_implementations)]
+
 #[repr(C)]
 #[derive(Copy, Clone)]
 pub struct nlist_64 {
@@ -15,3 +18,4 @@ pub struct nlist_64 {
 pub union nlist_64__bindgen_ty_1 {
     pub n_strx: u32,
 }
+

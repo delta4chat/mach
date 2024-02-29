@@ -11,6 +11,9 @@
 #![deny(missing_debug_implementations)]
 #![deny(missing_copy_implementations)]
 
+// why rust does not have this?
+//#![deny(missing_clone_implementations)]
+
 // if not a test, then #![no_std]
 #![cfg_attr(not(test), no_std)]
 

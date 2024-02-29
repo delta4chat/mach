@@ -27,18 +27,14 @@ pub const CLOCK_ALARM_CURRES: c_uint = 3;
 pub const CLOCK_ALARM_MINRES: c_uint = 4;
 pub const CLOCK_ALARM_MAXRES: c_uint = 5;
 
-pub const USEC_PER_SEC:  c_ulonglong = 1_000_000;
-pub const NSEC_PER_SEC:  c_ulonglong = 1_000_000_000;
-
-pub const NSEC_PER_USEC: c_ulonglong = 1_000;
-pub const NSEC_PER_MSEC: c_ulonglong = 1_000_000;
 
 #[repr(C)]
-#[derive(Copy, Clone, Debug, Default, Hash)]
+#[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
 pub struct time_value_t {
     pub seconds: integer_t,
     pub microseconds: integer_t,
 }
+pub const TIME_MICROS_MAX: integer_t = 1_000_000;
 
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash)]
@@ -46,6 +42,10 @@ pub struct mach_timespec_t {
     pub tv_sec:  c_uint,
     pub tv_nsec: clock_res_t,
 }
+pub const USEC_PER_SEC:  c_ulonglong = 1_000_000;
+pub const NSEC_PER_SEC:  c_ulonglong = 1_000_000_000;
+pub const NSEC_PER_USEC: c_ulonglong = 1_000;
+pub const NSEC_PER_MSEC: c_ulonglong = 1_000_000;
 pub type mach_timespec = mach_timespec_t;
 
 impl PartialOrd for mach_timespec {
