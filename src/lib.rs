@@ -15,7 +15,7 @@
 //#![deny(missing_clone_implementations)]
 
 // if not a test, then #![no_std]
-#![cfg_attr(not(test), no_std)]
+#![cfg_attr(all(not(test), features="std"), no_std)]
 
 // if this is a test, define some useful things
 #[cfg(test)]

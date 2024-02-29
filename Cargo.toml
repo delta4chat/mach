@@ -34,6 +34,7 @@ maintenance = { status = "passively-maintained" }
 default  = []
 unstable = [] # Uses newer APIs (but unstable)
 alloc    = [] # Uses extern crate alloc
+std      = [] # Uses rust standard library
 
 [workspace]
 members = ["mach-test"]
