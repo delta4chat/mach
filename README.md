@@ -104,11 +104,9 @@ The following table describes the current CI set-up:
 
 This project is licensed under either of
 
-* A 2-clause BSD License ([LICENSE-BSD](LICENSE-BSD)), or
-* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE) or
+* [GNU General Public License Version 3.0](https://www.gnu.org/licenses/gpl-3.0.html), or
+* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE).
   http://www.apache.org/licenses/LICENSE-2.0)
-* MIT license ([LICENSE-MIT](LICENSE-MIT) or
-  http://opensource.org/licenses/MIT)
 
 at your option.
 
@@ -121,12 +119,13 @@ triple licensed as above, without any additional terms or conditions.
 To locally test the library, run:
 
 ```
-TARGET=x86_64-apple-darwin RUST_VERSION=nightly ./ci/run.sh
+$ ./tomake.sh nostd --target=x86_64-apple-darwin --any-args-accept-by-rustc
+$ ./tomake.sh test --target=<your_platform> --any-args-accept-by-cargo
+$ echo "for other args please see the bash script named tomake.sh"
 ```
 
-where you can replace the `TARGET` and `RUST_VERSION` with the target you
-want to test (e.g. `aarch64-apple-darwin`) and the Rust version you want to use for
-the tests (e.g. `stable`, `1.33.0`, etc.).
+where you can replace the `--target` with the target you
+want to test (e.g. `aarch64-apple-darwin`) and use [Rustup](https://rustup.rs/) if you need to use different Rust version, (e.g. `stable`, `1.33.0`, etc.).
 
 [crates.io]: https://crates.io/crates/mach-sys
 [Latest Version]: https://img.shields.io/crates/v/mach-sys.svg
