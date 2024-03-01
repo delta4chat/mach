@@ -48,7 +48,7 @@ jobs:
           export NOCTEST=1
           export NORUN=1
 
-          bash ci/run.sh
+          ./tomake.sh ci
 
       - uses: actions/upload-artifact@v3
         with:
