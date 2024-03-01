@@ -104,17 +104,16 @@ The following table describes the current CI set-up:
 
 This project is licensed under either of
 
-* [GNU General Public License Version 3.0](https://www.gnu.org/licenses/gpl-3.0.html), or
-* Apache License, Version 2.0, ([LICENSE-APACHE](LICENSE-APACHE).
-  http://www.apache.org/licenses/LICENSE-2.0)
+* Option 1: [GNU General Public License Version 3.0](https://www.gnu.org/licenses/gpl-3.0.html), or
+* Option 2: [Apache License, Version 2.0](http://www.apache.org/licenses/LICENSE-2.0)
 
 at your option.
 
 ## Contribution
 
-Unless you explicitly state otherwise, any contribution intentionally submitted
-for inclusion in `mach` by you, as defined in the Apache-2.0 license, shall be
-triple licensed as above, without any additional terms or conditions.
+Unless you explicitly state otherwise, any contribution intentionally submitted for inclusion in `mach-sys` by you,
+as defined in the dual licensing under `GPL-3.0` OR `Apache-2.0`, shall be
+both licensed as above, without any additional terms or conditions.
 
 To locally test the library, run:
 
