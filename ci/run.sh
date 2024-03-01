@@ -6,7 +6,7 @@ set -ex
 : "${RUST_VERSION?The `RUST_VERSION` environment variable must be set.}"
 
 echo "Running tests for target: ${TARGET}"
-export RUST_BACKTRACE=1
+export RUST_BACKTRACE=full
 export RUST_TEST_THREADS=1
 export RUST_TEST_NOCAPTURE=1
 export CARGO_INCREMENTAL=0
@@ -33,7 +33,7 @@ esac
 
 sudo rm -rf /Library/Developer/CommandLineTools
 
-# Build w/o std
+# Build without std
 cargo clean
 cargo build --no-default-features --target "${TARGET}" -vv 2>&1 | tee build_no_std.txt
 

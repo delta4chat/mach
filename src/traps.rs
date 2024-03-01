@@ -15,27 +15,34 @@ extern "C" {
     ) -> kern_return_t;
 }
 
-#[cfg(feature = "alloc")]
+#[cfg(feature = "unstable")]
 pub mod sync {
-    extern crate alloc;
-    use alloc::sync::Arc;
+    use super::{mach_port_t, mach_task_self_};
 
     #[cfg(feature = "std")]
-    use parking_lot;
+    use once_cell::sync::Lazy;
     #[cfg(feature = "std")]
-    static _MUTEX_STD: Arc<parking_lot::Mutex<()>> = Arc::new(Mutex::new(()));
+    static _MUTEX_STD: Lazy<parking_lot::Mutex<()>> = Lazy::new(|| { parking_lot::Mutex::new(()) });
 
     #[cfg(not(feature = "std"))]
-    use mcslock::raw::spins;
+    use generic_once_cell::Lazy as GenericLazy;
     #[cfg(not(feature = "std"))]
-    static _MUTEX_MCS: Arc<spins::Mutex<()>> = Arc::new(spins::Mutex::new(()));
+    use mcslock::{
+        raw::spins,
+        barging::Mutex as SpinMutex,
+        relax::Spin,
+    };
+    #[cfg(not(feature = "std"))]
+    static _MUTEX_MCS: GenericLazy<SpinMutex<(), Spin>, spins::Mutex<()>> = GenericLazy::new(|| { spins::Mutex::new(()) });
 
     pub fn mach_task_self() -> mach_port_t {
         #[cfg(feature = "std")]
         let _guard = _MUTEX_STD.lock();
 
         #[cfg(not(feature = "std"))]
-        let _guard = _MUTEX_MCS.lock(&mut spins::Node::new());
+        let mut _node = spins::MutexNode::new();
+        #[cfg(not(feature = "std"))]
+        let _guard = _MUTEX_MCS.lock(&mut _node);
 
         /// SAFETY: Mutex lock for any access operations
         unsafe { mach_task_self_ }
@@ -44,10 +51,12 @@ pub mod sync {
     }
 }
 
+/// SAFETY? not sure but you can use a thread lock externally, or use [sync::mach_task_self].
 pub unsafe fn mach_task_self() -> mach_port_t {
     mach_task_self_
 }
 
+/// SAFETY? see [mach_task_self]
 pub unsafe fn current_task() -> mach_port_t {
     mach_task_self()
 }

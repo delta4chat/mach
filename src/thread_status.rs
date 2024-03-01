@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/thread_status.h`.
 
-use crate::ffi::c_int;
+use crate::ffi::{c_uint, c_int};
 
 use crate::vm_types::natural_t;
 

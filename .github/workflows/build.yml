@@ -68,7 +68,7 @@ jobs:
           git reset --hard ${{github.sha}}
       
       - name: Build (mac)
-        run: for i in {1..3};do echo try build $i; cargo build --release --verbose && break;done;
+        run: make
 
       - uses: actions/upload-artifact@v3
         with:
@@ -86,3 +86,6 @@ jobs:
           git switch master
           git reset --hard ${{github.sha}}
 
+      - name: Run tests
+        run: |
+          make test
