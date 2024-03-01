@@ -68,7 +68,7 @@ jobs:
           git reset --hard ${{github.sha}}
       
       - name: Build (mac)
-        run: make
+        run: ./tomake.sh
 
       - uses: actions/upload-artifact@v3
         with:
@@ -88,4 +88,4 @@ jobs:
 
       - name: Run tests
         run: |
-          make test
+          ./tomake.sh test

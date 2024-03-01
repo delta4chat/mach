@@ -40,7 +40,7 @@ impl Xcode {
 fn main() {
     let xcode = Xcode::version();
     // kept on purpose for debugging:
-    // println!("cargo:warning=\"Xcode version: {:?}\"", xcode);
+    println!("cargo:warning=\"Xcode version: {:?}\"", xcode);
 
     let mut cfg = ctest::TestGenerator::new();
 

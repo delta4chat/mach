@@ -36,10 +36,10 @@ maintenance = { status = "passively-maintained" }
 default  = []
 
 # Uses newer APIs (but unstable)
-unstable = []
+unstable = ["dep:mcslock", "dep:generic_once_cell"]
 
 # Uses extern crate alloc
-alloc    = ["dep:mcslock", "dep:generic_once_cell"]
+alloc    = []
 
 # Uses rust standard library
 std      = ["dep:parking_lot", "dep:once_cell"] 
@@ -48,11 +48,16 @@ std      = ["dep:parking_lot", "dep:once_cell"]
 members = ["mach-test"]
 
 [dependencies]
+
+# spinning locks for no_std
+mcslock           = { optional = true, version = "0.1.1", features = ["lock_api"], default-features = false }
 generic_once_cell = { optional = true, version = "0.1.1" }
-mcslock = { optional = true, version = "0.1.1", features = ["lock_api"], default-features = false }
-once_cell = { optional = true, version = "1.19.0", features = ["portable-atomic", "race", "parking_lot"] }
-parking_lot = { optional = true, version = "0.12.1", features = ["deadlock_detection"] }
+
+# OS locks for std
+parking_lot       = { optional = true, version = "0.12.1", features = ["deadlock_detection"] }
+once_cell         = { optional = true, version = "1.19.0", features = ["portable-atomic", "race", "parking_lot"] }
 
 [package.metadata.docs.rs]
-default-target = "x86_64-apple-darwin"
-
+default-target      = "x86_64-apple-darwin"
+all-features        = true
+no-default-features = true
