@@ -12,6 +12,7 @@ fn main() {
     format!("{env:?}").hash(&mut h);
     format!("{:?}", Instant::now()).hash(&mut h);
     format!("{:?}", SystemTime::now()).hash(&mut h);
+    h.write_u128(fastrand::u128(..));
 
     let nonce: u64 = h.finish();
     let nonce_file =

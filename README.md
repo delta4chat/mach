@@ -28,11 +28,11 @@ platforms that support it.
 ```toml
 [target.'cfg(target_vendor="apple")'.dependencies]
 
-// use alias for migration from exists project:
-mach = { package = "mach-sys", version = "0.4.4" }
+# use alias for migration from exists project:
+mach = { package = "mach-sys", version = "0.5" }
 
-// or without alias:
-mach-sys = "0.4.4"
+# or without alias:
+mach-sys = "0.5"
 ```
 
 Available crate feature:
