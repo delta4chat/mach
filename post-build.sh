@@ -6,9 +6,17 @@ cd target/release/
 
 for i in libmach*.d
 do
-	continue
-	mv $i _$i && trap "mv _$i $i" EXIT
+	break
+	mv -v $i _$i && trap "mv _$i $i" EXIT
 done
+
+for i in libmach*.archive
+do
+	mv -v $i $(date -u '+%Y-%m-%d_%H-%M-%S')__$i
+done
+
+# if any exists, delete intermediate archive files.
+rm -rv libmach*.{7z,tar,xz,zip}
 
 if type 7zz
 then

@@ -55,6 +55,8 @@ mod _err {
 #[allow(unused_imports)]
 use core::{clone, cmp, default, fmt, hash, marker, mem, option};
 
+pub const NONCE_RANDOM: u64 = include!(env!("MACH_SYS_NONCE_RANDOM"));
+
 /// imports C types from core::ffi
 pub mod ffi {
     pub use core::ffi::{

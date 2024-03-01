@@ -1,7 +1,5 @@
 #!/bin/bash
 
-set -e
-
 build() {
 	build_without_std $*
 	build_with_std $*
@@ -50,14 +48,19 @@ default() {
 	build $*
 }
 
+trap exit SIGINT
+
+set -e
 set -x
 
-case $1 in
-	build) build $*;;
-	nostd) build_without_std $*;;
-	std) build_with_std $*;;
-	test) do_test $*;;
-	ios) ios_build $*;;
-	*) default $*;;
+case "$1" in
+	build)    shift; build $*;;
+	nostd)    shift; build_without_std $*;;
+	std)      shift; build_with_std $*;;
+	test)     shift; do_test $*;;
+	ios)      shift; ios_build $*;;
+	doc)      shift; doc $*;;
+	doc-open) shift; doc_open $*;;
+	*)        default $*;;
 esac
 

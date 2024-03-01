@@ -26,6 +26,8 @@ edition = "2021"
 
 [dev-dependencies]
 fastrand="2.0.0"
+[build-dependencies]
+fastrand="2.0.0"
 
 [badges]
 maintenance = { status = "passively-maintained" }
