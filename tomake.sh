@@ -3,9 +3,9 @@
 set -e
 
 build() {
-	build_without_std
-	build_with_std
-	post_build
+	build_without_std $*
+	build_with_std $*
+	post_build $*
 }
 
 doc() {
@@ -39,7 +39,7 @@ do_test() {
 }
 
 post_test() {
-	echo test finish
+	echo test finish $*
 }
 
 ios_build() {
