@@ -14,8 +14,7 @@
 // why rust does not have this?
 //#![deny(missing_clone_implementations)]
 
-// if not a test, then #![no_std]
-#![cfg_attr(not(test), no_std)]
+#![cfg_attr(not(feature="std"), no_std)]
 
 // if this is a test, define some useful things
 #[cfg(test)]
@@ -55,7 +54,7 @@ mod _err {
 #[allow(unused_imports)]
 use core::{clone, cmp, default, fmt, hash, marker, mem, option};
 
-// imports C types from core::ffi
+/// imports C types from core::ffi
 pub mod ffi {
     pub use core::ffi::{
         c_void,
@@ -66,27 +65,25 @@ pub mod ffi {
         c_ulonglong, c_longlong,
     };
 
-    pub type clock_t  = c_ulong; // in all apple/darwin platforms, type `clock_t` is equiv to `c_ulong`.
-    pub type policy_t = c_int;   // in all apple/darwin platforms, type `policy_t` is equiv to `c_int`.
+    pub type clock_t  = c_ulong; /// in all apple/darwin platforms, type `clock_t` is equiv to `c_ulong`.
+    pub type policy_t = c_int;   /// in all apple/darwin platforms, type `policy_t` is equiv to `c_int`.
 
-    pub type intptr_t  = isize; // in all platforms, `intptr_t` equiv to `isize`
-    pub type uintptr_t = usize; // in all platforms, `uintptr_t` is equiv to `usize`
+    pub type intptr_t  = isize; /// in all platforms, `intptr_t` equiv to `isize`
+    pub type uintptr_t = usize; /// in all platforms, `uintptr_t` is equiv to `usize`
 
-    // in all apple/darwin platforms,
-    // type `cpu_type_t` and `cpu_subtype_t`,
-    // both equiv to `integer_t`.
+    /// in all apple/darwin platforms,
+    /// type `cpu_type_t` and `cpu_subtype_t`,
+    /// both equiv to `integer_t`.
     use crate::vm_types::integer_t;
     pub type cpu_type_t    = integer_t;
     pub type cpu_subtype_t = integer_t;
 
-    // in all apple/darwin platforms,
-    // `pid_t` and `uid_t` both are 32-bit integer.
-    // but PID is signed, UID is unsigned.
+    /// in all apple/darwin platforms,
+    /// `pid_t` and `uid_t` both are 32-bit integer.
+    /// but PID is signed, UID is unsigned.
     pub type pid_t = i32;
     pub type uid_t = u32;
 }
-
-
 
 pub mod boolean;
 pub mod bootstrap;
