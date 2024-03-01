@@ -224,65 +224,65 @@ impl KERN_RETURN {
         }
     }
 
-    pub const fn from_int(val: kern_return_t) -> Self {
+    pub const fn from_int(val: kern_return_t)
+        -> Result<Self, kern_return_t>
+    {
         match val {
-            0     => Self::KERN_SUCCESS,
-            1     => Self::KERN_INVALID_ADDRESS,
-            2     => Self::KERN_PROTECTION_FAILURE,
-            3     => Self::KERN_NO_SPACE,
-            4     => Self::KERN_INVALID_ARGUMENT,
-            5     => Self::KERN_FAILURE,
-            6     => Self::KERN_RESOURCE_SHORTAGE,
-            7     => Self::KERN_NOT_RECEIVER,
-            8     => Self::KERN_NO_ACCESS,
-            9     => Self::KERN_MEMORY_FAILURE,
-            10    => Self::KERN_MEMORY_ERROR,
-            11    => Self::KERN_ALREADY_IN_SET,
-            12    => Self::KERN_NOT_IN_SET,
-            13    => Self::KERN_NAME_EXISTS,
-            14    => Self::KERN_ABORTED,
-            15    => Self::KERN_INVALID_NAME,
-            16    => Self::KERN_INVALID_TASK,
-            17    => Self::KERN_INVALID_RIGHT,
-            18    => Self::KERN_INVALID_VALUE,
-            19    => Self::KERN_UREFS_OVERFLOW,
-            20    => Self::KERN_INVALID_CAPABILITY,
-            21    => Self::KERN_RIGHT_EXISTS,
-            22    => Self::KERN_INVALID_HOST,
-            23    => Self::KERN_MEMORY_PRESENT,
-            24    => Self::KERN_MEMORY_DATA_MOVED,
-            25    => Self::KERN_MEMORY_RESTART_COPY,
-            26    => Self::KERN_INVALID_PROCESSOR_SET,
-            27    => Self::KERN_POLICY_LIMIT,
-            28    => Self::KERN_INVALID_POLICY,
-            29    => Self::KERN_INVALID_OBJECT,
-            30    => Self::KERN_ALREADY_WAITING,
-            31    => Self::KERN_DEFAULT_SET,
-            32    => Self::KERN_EXCEPTION_PROTECTED,
-            33    => Self::KERN_INVALID_LEDGER,
-            34    => Self::KERN_INVALID_MEMORY_CONTROL,
-            35    => Self::KERN_INVALID_SECURITY,
-            36    => Self::KERN_NOT_DEPRESSED,
-            37    => Self::KERN_TERMINATED,
-            38    => Self::KERN_LOCK_SET_DESTROYED,
-            39    => Self::KERN_LOCK_UNSTABLE,
-            40    => Self::KERN_LOCK_OWNED,
-            41    => Self::KERN_LOCK_OWNED_SELF,
-            42    => Self::KERN_SEMAPHORE_DESTROYED,
-            43    => Self::KERN_RPC_SERVER_TERMINATED,
-            44    => Self::KERN_RPC_TERMINATE_ORPHAN,
-            45    => Self::KERN_RPC_CONTINUE_ORPHAN,
-            46    => Self::KERN_NOT_SUPPORTED,
-            47    => Self::KERN_NODE_DOWN,
-            48    => Self::KERN_NOT_WAITING,
-            49    => Self::KERN_OPERATION_TIMED_OUT,
-            50    => Self::KERN_CODESIGN_ERROR,
-            51    => Self::KERN_POLICY_STATIC,
-            256   => Self::KERN_RETURN_MAX,
+            0   => Ok(Self::KERN_SUCCESS),
+            1   => Ok(Self::KERN_INVALID_ADDRESS),
+            2   => Ok(Self::KERN_PROTECTION_FAILURE),
+            3   => Ok(Self::KERN_NO_SPACE),
+            4   => Ok(Self::KERN_INVALID_ARGUMENT),
+            5   => Ok(Self::KERN_FAILURE),
+            6   => Ok(Self::KERN_RESOURCE_SHORTAGE),
+            7   => Ok(Self::KERN_NOT_RECEIVER),
+            8   => Ok(Self::KERN_NO_ACCESS),
+            9   => Ok(Self::KERN_MEMORY_FAILURE),
+            10  => Ok(Self::KERN_MEMORY_ERROR),
+            11  => Ok(Self::KERN_ALREADY_IN_SET),
+            12  => Ok(Self::KERN_NOT_IN_SET),
+            13  => Ok(Self::KERN_NAME_EXISTS),
+            14  => Ok(Self::KERN_ABORTED),
+            15  => Ok(Self::KERN_INVALID_NAME),
+            16  => Ok(Self::KERN_INVALID_TASK),
+            17  => Ok(Self::KERN_INVALID_RIGHT),
+            18  => Ok(Self::KERN_INVALID_VALUE),
+            19  => Ok(Self::KERN_UREFS_OVERFLOW),
+            20  => Ok(Self::KERN_INVALID_CAPABILITY),
+            21  => Ok(Self::KERN_RIGHT_EXISTS),
+            22  => Ok(Self::KERN_INVALID_HOST),
+            23  => Ok(Self::KERN_MEMORY_PRESENT),
+            24  => Ok(Self::KERN_MEMORY_DATA_MOVED),
+            25  => Ok(Self::KERN_MEMORY_RESTART_COPY),
+            26  => Ok(Self::KERN_INVALID_PROCESSOR_SET),
+            27  => Ok(Self::KERN_POLICY_LIMIT),
+            28  => Ok(Self::KERN_INVALID_POLICY),
+            29  => Ok(Self::KERN_INVALID_OBJECT),
+            30  => Ok(Self::KERN_ALREADY_WAITING),
+            31  => Ok(Self::KERN_DEFAULT_SET),
+            32  => Ok(Self::KERN_EXCEPTION_PROTECTED),
+            33  => Ok(Self::KERN_INVALID_LEDGER),
+            34  => Ok(Self::KERN_INVALID_MEMORY_CONTROL),
+            35  => Ok(Self::KERN_INVALID_SECURITY),
+            36  => Ok(Self::KERN_NOT_DEPRESSED),
+            37  => Ok(Self::KERN_TERMINATED),
+            38  => Ok(Self::KERN_LOCK_SET_DESTROYED),
+            39  => Ok(Self::KERN_LOCK_UNSTABLE),
+            40  => Ok(Self::KERN_LOCK_OWNED),
+            41  => Ok(Self::KERN_LOCK_OWNED_SELF),
+            42  => Ok(Self::KERN_SEMAPHORE_DESTROYED),
+            43  => Ok(Self::KERN_RPC_SERVER_TERMINATED),
+            44  => Ok(Self::KERN_RPC_TERMINATE_ORPHAN),
+            45  => Ok(Self::KERN_RPC_CONTINUE_ORPHAN),
+            46  => Ok(Self::KERN_NOT_SUPPORTED),
+            47  => Ok(Self::KERN_NODE_DOWN),
+            48  => Ok(Self::KERN_NOT_WAITING),
+            49  => Ok(Self::KERN_OPERATION_TIMED_OUT),
+            50  => Ok(Self::KERN_CODESIGN_ERROR),
+            51  => Ok(Self::KERN_POLICY_STATIC),
+            256 => Ok(Self::KERN_RETURN_MAX),
 
-            _ => {
-                panic!("KERN_RETURN code is undefined");
-            }
+            _   => Err(val),
         }
     }
 }
@@ -563,3 +563,199 @@ pub const KERN_POLICY_STATIC: kern_return_t =
 pub const KERN_RETURN_MAX: kern_return_t =
     KERN_RETURN::KERN_RETURN_MAX.to_int();
 
+#[cfg(test)]
+mod test {
+    use super::*;
+
+    #[test]
+    fn kern_return_const_correction() {
+        assert!(0 == KERN_SUCCESS);
+        assert!(1 == KERN_INVALID_ADDRESS);
+        assert!(2 == KERN_PROTECTION_FAILURE);
+        assert!(3 == KERN_NO_SPACE);
+        assert!(4 == KERN_INVALID_ARGUMENT);
+        assert!(5 == KERN_FAILURE);
+        assert!(6 == KERN_RESOURCE_SHORTAGE);
+        assert!(7 == KERN_NOT_RECEIVER);
+        assert!(8 == KERN_NO_ACCESS);
+        assert!(9 == KERN_MEMORY_FAILURE);
+        assert!(10 == KERN_MEMORY_ERROR);
+        assert!(11 == KERN_ALREADY_IN_SET);
+        assert!(12 == KERN_NOT_IN_SET);
+        assert!(13 == KERN_NAME_EXISTS);
+        assert!(14 == KERN_ABORTED);
+        assert!(15 == KERN_INVALID_NAME);
+        assert!(16 == KERN_INVALID_TASK);
+        assert!(17 == KERN_INVALID_RIGHT);
+        assert!(18 == KERN_INVALID_VALUE);
+        assert!(19 == KERN_UREFS_OVERFLOW);
+        assert!(20 == KERN_INVALID_CAPABILITY);
+        assert!(21 == KERN_RIGHT_EXISTS);
+        assert!(22 == KERN_INVALID_HOST);
+        assert!(23 == KERN_MEMORY_PRESENT);
+        assert!(24 == KERN_MEMORY_DATA_MOVED);
+        assert!(25 == KERN_MEMORY_RESTART_COPY);
+        assert!(26 == KERN_INVALID_PROCESSOR_SET);
+        assert!(27 == KERN_POLICY_LIMIT);
+        assert!(28 == KERN_INVALID_POLICY);
+        assert!(29 == KERN_INVALID_OBJECT);
+        assert!(30 == KERN_ALREADY_WAITING);
+        assert!(31 == KERN_DEFAULT_SET);
+        assert!(32 == KERN_EXCEPTION_PROTECTED);
+        assert!(33 == KERN_INVALID_LEDGER);
+        assert!(34 == KERN_INVALID_MEMORY_CONTROL);
+        assert!(35 == KERN_INVALID_SECURITY);
+        assert!(36 == KERN_NOT_DEPRESSED);
+        assert!(37 == KERN_TERMINATED);
+        assert!(38 == KERN_LOCK_SET_DESTROYED);
+        assert!(39 == KERN_LOCK_UNSTABLE);
+        assert!(40 == KERN_LOCK_OWNED);
+        assert!(41 == KERN_LOCK_OWNED_SELF);
+        assert!(42 == KERN_SEMAPHORE_DESTROYED);
+        assert!(43 == KERN_RPC_SERVER_TERMINATED);
+        assert!(44 == KERN_RPC_TERMINATE_ORPHAN);
+        assert!(45 == KERN_RPC_CONTINUE_ORPHAN);
+        assert!(46 == KERN_NOT_SUPPORTED);
+        assert!(47 == KERN_NODE_DOWN);
+        assert!(48 == KERN_NOT_WAITING);
+        assert!(49 == KERN_OPERATION_TIMED_OUT);
+        assert!(50 == KERN_CODESIGN_ERROR);
+        assert!(51 == KERN_POLICY_STATIC);
+        assert!(256 == KERN_RETURN_MAX);
+    }
+
+    fn kern_return_enum_double_mapping() {
+        assert!(KERN_RETURN::from_int(0) == KERN_SUCCESS);
+        assert!(KERN_RETURN::from_int(1) == KERN_INVALID_ADDRESS);
+        assert!(KERN_RETURN::from_int(2) == KERN_PROTECTION_FAILURE);
+        assert!(KERN_RETURN::from_int(3) == KERN_NO_SPACE);                                                             assert!(KERN_RETURN::from_int(4) == KERN_INVALID_ARGUMENT);                                                     assert!(KERN_RETURN::from_int(5) == KERN_FAILURE);                                                              assert!(KERN_RETURN::from_int(6) == KERN_RESOURCE_SHORTAGE);                                                    assert!(KERN_RETURN::from_int(7) == KERN_NOT_RECEIVER);
+        assert!(KERN_RETURN::from_int(8) == KERN_NO_ACCESS);
+        assert!(KERN_RETURN::from_int(9) == KERN_MEMORY_FAILURE);
+        assert!(KERN_RETURN::from_int(10) == KERN_MEMORY_ERROR);
+        assert!(KERN_RETURN::from_int(11) == KERN_ALREADY_IN_SET);
+        assert!(KERN_RETURN::from_int(12) == KERN_NOT_IN_SET);
+        assert!(KERN_RETURN::from_int(13) == KERN_NAME_EXISTS);
+        assert!(KERN_RETURN::from_int(14) == KERN_ABORTED);
+        assert!(KERN_RETURN::from_int(15) == KERN_INVALID_NAME);
+        assert!(KERN_RETURN::from_int(16) == KERN_INVALID_TASK);
+        assert!(KERN_RETURN::from_int(17) == KERN_INVALID_RIGHT);
+        assert!(KERN_RETURN::from_int(18) == KERN_INVALID_VALUE);
+        assert!(KERN_RETURN::from_int(19) == KERN_UREFS_OVERFLOW);
+        assert!(KERN_RETURN::from_int(20) == KERN_INVALID_CAPABILITY);
+        assert!(KERN_RETURN::from_int(21) == KERN_RIGHT_EXISTS);
+        assert!(KERN_RETURN::from_int(22) == KERN_INVALID_HOST);
+        assert!(KERN_RETURN::from_int(23) == KERN_MEMORY_PRESENT);
+        assert!(KERN_RETURN::from_int(24) == KERN_MEMORY_DATA_MOVED);
+        assert!(KERN_RETURN::from_int(25) == KERN_MEMORY_RESTART_COPY);
+        assert!(KERN_RETURN::from_int(26) == KERN_INVALID_PROCESSOR_SET);
+        assert!(KERN_RETURN::from_int(27) == KERN_POLICY_LIMIT);
+        assert!(KERN_RETURN::from_int(28) == KERN_INVALID_POLICY);
+        assert!(KERN_RETURN::from_int(29) == KERN_INVALID_OBJECT);
+        assert!(KERN_RETURN::from_int(30) == KERN_ALREADY_WAITING);
+        assert!(KERN_RETURN::from_int(31) == KERN_DEFAULT_SET);
+        assert!(KERN_RETURN::from_int(32) == KERN_EXCEPTION_PROTECTED);
+        assert!(KERN_RETURN::from_int(33) == KERN_INVALID_LEDGER);
+        assert!(KERN_RETURN::from_int(34) == KERN_INVALID_MEMORY_CONTROL);
+        assert!(KERN_RETURN::from_int(35) == KERN_INVALID_SECURITY);
+        assert!(KERN_RETURN::from_int(36) == KERN_NOT_DEPRESSED);
+        assert!(KERN_RETURN::from_int(37) == KERN_TERMINATED);
+        assert!(KERN_RETURN::from_int(38) == KERN_LOCK_SET_DESTROYED);                                                  assert!(KERN_RETURN::from_int(39) == KERN_LOCK_UNSTABLE);
+        assert!(KERN_RETURN::from_int(40) == KERN_LOCK_OWNED);                                                          assert!(KERN_RETURN::from_int(41) == KERN_LOCK_OWNED_SELF);                                                     assert!(KERN_RETURN::from_int(42) == KERN_SEMAPHORE_DESTROYED);
+        assert!(KERN_RETURN::from_int(43) == KERN_RPC_SERVER_TERMINATED);
+        assert!(KERN_RETURN::from_int(44) == KERN_RPC_TERMINATE_ORPHAN);
+        assert!(KERN_RETURN::from_int(45) == KERN_RPC_CONTINUE_ORPHAN);
+        assert!(KERN_RETURN::from_int(46) == KERN_NOT_SUPPORTED);
+        assert!(KERN_RETURN::from_int(47) == KERN_NODE_DOWN);
+        assert!(KERN_RETURN::from_int(48) == KERN_NOT_WAITING);
+        assert!(KERN_RETURN::from_int(49) == KERN_OPERATION_TIMED_OUT);
+        assert!(KERN_RETURN::from_int(50) == KERN_CODESIGN_ERROR);
+        assert!(KERN_RETURN::from_int(51) == KERN_POLICY_STATIC);
+        assert!(KERN_RETURN::from_int(256) == KERN_RETURN_MAX);
+
+        assert!(0 == KERN_RETURN::KERN_SUCCESS.to_int());
+        assert!(1 == KERN_RETURN::KERN_INVALID_ADDRESS.to_int());
+        assert!(2 == KERN_RETURN::KERN_PROTECTION_FAILURE.to_int());
+        assert!(3 == KERN_RETURN::KERN_NO_SPACE.to_int());
+        assert!(4 == KERN_RETURN::KERN_INVALID_ARGUMENT.to_int());
+        assert!(5 == KERN_RETURN::KERN_FAILURE.to_int());
+        assert!(6 == KERN_RETURN::KERN_RESOURCE_SHORTAGE.to_int());
+        assert!(7 == KERN_RETURN::KERN_NOT_RECEIVER.to_int());
+        assert!(8 == KERN_RETURN::KERN_NO_ACCESS.to_int());
+        assert!(9 == KERN_RETURN::KERN_MEMORY_FAILURE.to_int());                                                        assert!(10 == KERN_RETURN::KERN_MEMORY_ERROR.to_int());                                                         assert!(11 == KERN_RETURN::KERN_ALREADY_IN_SET.to_int());
+        assert!(12 == KERN_RETURN::KERN_NOT_IN_SET.to_int());
+        assert!(13 == KERN_RETURN::KERN_NAME_EXISTS.to_int());
+        assert!(14 == KERN_RETURN::KERN_ABORTED.to_int());
+        assert!(15 == KERN_RETURN::KERN_INVALID_NAME.to_int());
+        assert!(16 == KERN_RETURN::KERN_INVALID_TASK.to_int());
+        assert!(17 == KERN_RETURN::KERN_INVALID_RIGHT.to_int());
+        assert!(18 == KERN_RETURN::KERN_INVALID_VALUE.to_int());
+        assert!(19 == KERN_RETURN::KERN_UREFS_OVERFLOW.to_int());
+        assert!(20 == KERN_RETURN::KERN_INVALID_CAPABILITY.to_int());                                                   assert!(21 == KERN_RETURN::KERN_RIGHT_EXISTS.to_int());                                                         assert!(22 == KERN_RETURN::KERN_INVALID_HOST.to_int());                                                         assert!(23 == KERN_RETURN::KERN_MEMORY_PRESENT.to_int());                                                       assert!(24 == KERN_RETURN::KERN_MEMORY_DATA_MOVED.to_int());                                                    assert!(25 == KERN_RETURN::KERN_MEMORY_RESTART_COPY.to_int());                                                  assert!(26 == KERN_RETURN::KERN_INVALID_PROCESSOR_SET.to_int());                                                assert!(27 == KERN_RETURN::KERN_POLICY_LIMIT.to_int());                                                         assert!(28 == KERN_RETURN::KERN_INVALID_POLICY.to_int());                                                       assert!(29 == KERN_RETURN::KERN_INVALID_OBJECT.to_int());                                                       assert!(30 == KERN_RETURN::KERN_ALREADY_WAITING.to_int());                                                      assert!(31 == KERN_RETURN::KERN_DEFAULT_SET.to_int());                                                          assert!(32 == KERN_RETURN::KERN_EXCEPTION_PROTECTED.to_int());                                                  assert!(33 == KERN_RETURN::KERN_INVALID_LEDGER.to_int());                                                       assert!(34 == KERN_RETURN::KERN_INVALID_MEMORY_CONTROL.to_int());                                               assert!(35 == KERN_RETURN::KERN_INVALID_SECURITY.to_int());                                                     assert!(36 == KERN_RETURN::KERN_NOT_DEPRESSED.to_int());                                                        assert!(37 == KERN_RETURN::KERN_TERMINATED.to_int());                                                           assert!(38 == KERN_RETURN::KERN_LOCK_SET_DESTROYED.to_int());                                                   assert!(39 == KERN_RETURN::KERN_LOCK_UNSTABLE.to_int());                                                        assert!(40 == KERN_RETURN::KERN_LOCK_OWNED.to_int());                                                           assert!(41 == KERN_RETURN::KERN_LOCK_OWNED_SELF.to_int());
+        assert!(42 == KERN_RETURN::KERN_SEMAPHORE_DESTROYED.to_int());
+        assert!(43 == KERN_RETURN::KERN_RPC_SERVER_TERMINATED.to_int());
+        assert!(44 == KERN_RETURN::KERN_RPC_TERMINATE_ORPHAN.to_int());
+        assert!(45 == KERN_RETURN::KERN_RPC_CONTINUE_ORPHAN.to_int());
+        assert!(46 == KERN_RETURN::KERN_NOT_SUPPORTED.to_int());
+        assert!(47 == KERN_RETURN::KERN_NODE_DOWN.to_int());
+        assert!(48 == KERN_RETURN::KERN_NOT_WAITING.to_int());
+        assert!(49 == KERN_RETURN::KERN_OPERATION_TIMED_OUT.to_int());                                                  assert!(50 == KERN_RETURN::KERN_CODESIGN_ERROR.to_int());
+        assert!(51 == KERN_RETURN::KERN_POLICY_STATIC.to_int());
+        assert!(256 == KERN_RETURN::KERN_RETURN_MAX.to_int());
+    }
+
+    fn kern_return_3_int_enum_const() {
+        assert!(0 == KERN_SUCCESS == KERN_RETURN::KERN_SUCCESS.to_int());
+        assert!(1 == KERN_INVALID_ADDRESS == KERN_RETURN::KERN_INVALID_ADDRESS.to_int());
+        assert!(2 == KERN_PROTECTION_FAILURE == KERN_RETURN::KERN_PROTECTION_FAILURE.to_int());
+        assert!(3 == KERN_NO_SPACE == KERN_RETURN::KERN_NO_SPACE.to_int());
+        assert!(4 == KERN_INVALID_ARGUMENT == KERN_RETURN::KERN_INVALID_ARGUMENT.to_int());
+        assert!(5 == KERN_FAILURE == KERN_RETURN::KERN_FAILURE.to_int());
+        assert!(6 == KERN_RESOURCE_SHORTAGE == KERN_RETURN::KERN_RESOURCE_SHORTAGE.to_int());
+        assert!(7 == KERN_NOT_RECEIVER == KERN_RETURN::KERN_NOT_RECEIVER.to_int());
+        assert!(8 == KERN_NO_ACCESS == KERN_RETURN::KERN_NO_ACCESS.to_int());
+        assert!(9 == KERN_MEMORY_FAILURE == KERN_RETURN::KERN_MEMORY_FAILURE.to_int());
+        assert!(10 == KERN_MEMORY_ERROR == KERN_RETURN::KERN_MEMORY_ERROR.to_int());
+        assert!(11 == KERN_ALREADY_IN_SET == KERN_RETURN::KERN_ALREADY_IN_SET.to_int());
+        assert!(12 == KERN_NOT_IN_SET == KERN_RETURN::KERN_NOT_IN_SET.to_int());
+        assert!(13 == KERN_NAME_EXISTS == KERN_RETURN::KERN_NAME_EXISTS.to_int());
+        assert!(14 == KERN_ABORTED == KERN_RETURN::KERN_ABORTED.to_int());
+        assert!(15 == KERN_INVALID_NAME == KERN_RETURN::KERN_INVALID_NAME.to_int());
+        assert!(16 == KERN_INVALID_TASK == KERN_RETURN::KERN_INVALID_TASK.to_int());
+        assert!(17 == KERN_INVALID_RIGHT == KERN_RETURN::KERN_INVALID_RIGHT.to_int());
+        assert!(18 == KERN_INVALID_VALUE == KERN_RETURN::KERN_INVALID_VALUE.to_int());
+        assert!(19 == KERN_UREFS_OVERFLOW == KERN_RETURN::KERN_UREFS_OVERFLOW.to_int());
+        assert!(20 == KERN_INVALID_CAPABILITY == KERN_RETURN::KERN_INVALID_CAPABILITY.to_int());
+        assert!(21 == KERN_RIGHT_EXISTS == KERN_RETURN::KERN_RIGHT_EXISTS.to_int());
+        assert!(22 == KERN_INVALID_HOST == KERN_RETURN::KERN_INVALID_HOST.to_int());
+        assert!(23 == KERN_MEMORY_PRESENT == KERN_RETURN::KERN_MEMORY_PRESENT.to_int());
+        assert!(24 == KERN_MEMORY_DATA_MOVED == KERN_RETURN::KERN_MEMORY_DATA_MOVED.to_int());
+        assert!(25 == KERN_MEMORY_RESTART_COPY == KERN_RETURN::KERN_MEMORY_RESTART_COPY.to_int());
+        assert!(26 == KERN_INVALID_PROCESSOR_SET == KERN_RETURN::KERN_INVALID_PROCESSOR_SET.to_int());
+        assert!(27 == KERN_POLICY_LIMIT == KERN_RETURN::KERN_POLICY_LIMIT.to_int());
+        assert!(28 == KERN_INVALID_POLICY == KERN_RETURN::KERN_INVALID_POLICY.to_int());
+        assert!(29 == KERN_INVALID_OBJECT == KERN_RETURN::KERN_INVALID_OBJECT.to_int());
+        assert!(30 == KERN_ALREADY_WAITING == KERN_RETURN::KERN_ALREADY_WAITING.to_int());
+        assert!(31 == KERN_DEFAULT_SET == KERN_RETURN::KERN_DEFAULT_SET.to_int());
+        assert!(32 == KERN_EXCEPTION_PROTECTED == KERN_RETURN::KERN_EXCEPTION_PROTECTED.to_int());
+        assert!(33 == KERN_INVALID_LEDGER == KERN_RETURN::KERN_INVALID_LEDGER.to_int());
+        assert!(34 == KERN_INVALID_MEMORY_CONTROL == KERN_RETURN::KERN_INVALID_MEMORY_CONTROL.to_int());
+        assert!(35 == KERN_INVALID_SECURITY == KERN_RETURN::KERN_INVALID_SECURITY.to_int());
+        assert!(36 == KERN_NOT_DEPRESSED == KERN_RETURN::KERN_NOT_DEPRESSED.to_int());
+        assert!(37 == KERN_TERMINATED == KERN_RETURN::KERN_TERMINATED.to_int());
+        assert!(38 == KERN_LOCK_SET_DESTROYED == KERN_RETURN::KERN_LOCK_SET_DESTROYED.to_int());
+        assert!(39 == KERN_LOCK_UNSTABLE == KERN_RETURN::KERN_LOCK_UNSTABLE.to_int());
+        assert!(40 == KERN_LOCK_OWNED == KERN_RETURN::KERN_LOCK_OWNED.to_int());
+        assert!(41 == KERN_LOCK_OWNED_SELF == KERN_RETURN::KERN_LOCK_OWNED_SELF.to_int());
+        assert!(42 == KERN_SEMAPHORE_DESTROYED == KERN_RETURN::KERN_SEMAPHORE_DESTROYED.to_int());
+        assert!(43 == KERN_RPC_SERVER_TERMINATED == KERN_RETURN::KERN_RPC_SERVER_TERMINATED.to_int());
+        assert!(44 == KERN_RPC_TERMINATE_ORPHAN == KERN_RETURN::KERN_RPC_TERMINATE_ORPHAN.to_int());
+        assert!(45 == KERN_RPC_CONTINUE_ORPHAN == KERN_RETURN::KERN_RPC_CONTINUE_ORPHAN.to_int());
+        assert!(46 == KERN_NOT_SUPPORTED == KERN_RETURN::KERN_NOT_SUPPORTED.to_int());
+        assert!(47 == KERN_NODE_DOWN == KERN_RETURN::KERN_NODE_DOWN.to_int());
+        assert!(48 == KERN_NOT_WAITING == KERN_RETURN::KERN_NOT_WAITING.to_int());
+        assert!(49 == KERN_OPERATION_TIMED_OUT == KERN_RETURN::KERN_OPERATION_TIMED_OUT.to_int());
+        assert!(50 == KERN_CODESIGN_ERROR == KERN_RETURN::KERN_CODESIGN_ERROR.to_int());
+        assert!(51 == KERN_POLICY_STATIC == KERN_RETURN::KERN_POLICY_STATIC.to_int());
+        assert!(256 == KERN_RETURN_MAX == KERN_RETURN::KERN_RETURN_MAX.to_int());
+    }
+}
