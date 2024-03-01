@@ -44,23 +44,46 @@ ios_build() {
 	bash --norc -x ./ios-build.sh $*
 }
 
+ci() {
+	bash --norc -x ci/run.sh $*
+	post_run
+}
+
 default() {
 	build $*
 }
 
-trap exit SIGINT
+__atexit() {
+	set +e
+
+	kill $(jobs -p)
+	kill $1 $$
+
+	exit
+
+	kill -9 $(jobs -p)
+	kill -9 $1 $$
+}
+
+set -x
+trap "__atexit $$" SIGINT
+
+while ! test -f ./Cargo.toml
+do
+	pwd >&2
+	cd .. || exit
+done
 
 set -e
-set -x
-
 case "$1" in
-	build)    shift; build $*;;
-	nostd)    shift; build_without_std $*;;
-	std)      shift; build_with_std $*;;
-	test)     shift; do_test $*;;
-	ios)      shift; ios_build $*;;
-	doc)      shift; doc $*;;
-	doc-open) shift; doc_open $*;;
-	*)        default $*;;
+	build)    shift; build $* ;;
+	nostd)    shift; build_without_std $* ;;
+	std)      shift; build_with_std $* ;;
+	test)     shift; do_test $* ;;
+	ios)      shift; ios_build $* ;;
+	doc)      shift; doc $* ;;
+	doc-open) shift; doc_open $* ;;
+	ci)       shift; ci $* ;;
+	*)        default $* ;;
 esac
 

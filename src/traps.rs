@@ -72,6 +72,7 @@ mod tests {
             let this_task = mach_task_self();
             assert!(this_task != MACH_PORT_NULL);
             assert!(this_task != MACH_PORT_DEAD);
+            p!("task id = {this_task}");
         }
     }
 }

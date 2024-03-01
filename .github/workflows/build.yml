@@ -21,7 +21,7 @@ jobs:
           - aarch64-apple-ios
           - aarch64-apple-darwin
           - aarch64-apple-ios-sim
-          #- x86_64-apple-ios
+          - x86_64-apple-ios
 
     steps:
       - uses: actions/checkout@v4
@@ -45,10 +45,26 @@ jobs:
         run: |
           export TARGET=${{matrix.target}}
           export RUST_VERSION=nightly
-          #export NOCTEST=1
-          #export NORUN=1
+          export NOCTEST=1
+          export NORUN=1
 
           bash ci/run.sh
+
+      - uses: actions/upload-artifact@v3
+        with:
+          name: lib-mach-sys.amd64-mac.zip
+          path: target/${{matrix.target}}/release/libmach*
+
+      - name: Upload binary of amd64 mac
+        run: |
+          git switch bin
+          git pull origin bin
+          cp -v target/${{matrix.target}}/release/libmach* bin/$(git log -1 --format="%cd" --date=format:"%Y-%m-%d_%H-%M-%S" ${{github.sha}})__${{github.sha}}/amd64-mac/
+          git add -A
+          git commit -m "[${{github.sha}}] upload ${{matrix.target}} of mach-sys library"
+          git push origin bin
+          git switch master
+          git reset --hard ${{github.sha}}
 
   amd64-mac:
     runs-on: macos-12
