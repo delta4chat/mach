@@ -1,6 +1,6 @@
 [package]
 name = "mach-sys"
-version = "0.5.3"
+version = "0.5.4-alpha0"
 authors = [
   # authors of original "mach"
   "Nick Fitzgerald <fitzgen@gmail.com>",
@@ -61,7 +61,8 @@ once_cell         = { optional = true, version = "1.19.0", features = ["portable
 
 [package.metadata.docs.rs]
 no-default-features = true
-all-features        = true
+#all-features        = true
+features = [ "alloc", "unstable"]
 
 default-target = "x86_64-apple-darwin"
 targets        = [

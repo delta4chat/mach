@@ -1,5 +1,9 @@
 # mach-sys: forked from original "mach", and merge from "mach2" & "machx".
 
+[![github](https://img.shields.io/badge/GitHub-mach-sys?logo=github)](https://github.com/delta4chat/mach)
+[![docs.rs](https://img.shields.io/docsrs/mach-sys/latest)](https://docs.rs/mach-sys)
+[![crates.io](https://img.shields.io/crates/v/mach-sys.svg)](https://crates.io/crates/mach-sys)
+
 A Rust interface to the **user-space** API of the Mach 3.0 kernel exposed in
 `/usr/include/mach` that underlies macOS and is linked via `libSystem` (and
 `libsystem_kernel`).
