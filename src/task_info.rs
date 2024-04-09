@@ -1,5 +1,7 @@
 //! This module roughly corresponds to `mach/task_info.h`.
 
+use core::mem;
+
 use super::vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t, natural_t};
 
 pub const TASK_INFO_MAX: ::libc::c_uint = 1024;
@@ -47,4 +49,10 @@ pub struct task_dyld_info {
     pub all_image_info_addr: mach_vm_address_t,
     pub all_image_info_size: mach_vm_size_t,
     pub all_image_info_format: integer_t,
+}
+
+impl task_dyld_info {
+    pub fn count() -> usize {
+        mem::size_of::<Self>() / mem::size_of::<natural_t>()
+    }
 }

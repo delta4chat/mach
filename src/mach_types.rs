@@ -104,3 +104,9 @@ pub struct fsobj_id {
     pub fid_generation: u32,
 }
 pub type fsobj_id_t = fsobj_id;
+
+pub type off_t = libc::c_longlong;
+
+pub type uid_t = libc::c_uint;
+
+pub type gid_t = libc::c_uint;

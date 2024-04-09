@@ -1,11 +1,13 @@
 //! This module roughly corresponds to `mach-o/loader.h`.
 
+use core::{ffi::c_char, mem::transmute};
+
 pub const LC_SEGMENT: u32 = 1;
 pub const LC_SEGMENT_64: u32 = 25;
-pub const SEG_TEXT: &[u8; 7usize] = b"__TEXT\0";
-pub const SEG_LINKEDIT: &[u8; 11usize] = b"__LINKEDIT\0";
-pub const SEG_DATA: &[u8; 7] = b"__DATA\0";
-pub const SEG_DATA_CONST: &[u8; 13] = b"__DATA_CONST\0";
+pub const SEG_TEXT: &[c_char; 7usize] = unsafe { transmute(b"__TEXT\0") };
+pub const SEG_LINKEDIT: &[c_char; 11usize] = unsafe { transmute(b"__LINKEDIT\0") };
+pub const SEG_DATA: &[c_char; 7] = unsafe { transmute(b"__DATA\0") };
+pub const SEG_DATA_CONST: &[c_char; 13] = unsafe { transmute(b"__DATA_CONST\0") };
 pub const LC_SYMTAB: u32 = 2;
 pub const INDIRECT_SYMBOL_LOCAL: u32 = 2147483648;
 pub const INDIRECT_SYMBOL_ABS: u32 = 1073741824;

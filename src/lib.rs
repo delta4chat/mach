@@ -1,5 +1,4 @@
-#![allow(non_camel_case_types)]
-#![allow(non_upper_case_globals)]
+#![allow(non_camel_case_types, non_upper_case_globals)]
 #![deny(missing_copy_implementations)]
 #![allow(
     clippy::module_name_repetitions,

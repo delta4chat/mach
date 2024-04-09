@@ -1,7 +1,7 @@
 //! This module roughly corresponds to `libproc.h`.
 
 use super::{
-    kern_return::kern_return_t,
+    mach_types::{fsid_t, gid_t, off_t, uid_t},
     vm_types::{integer_t, mach_vm_address_t, mach_vm_size_t},
 };
 
@@ -9,13 +9,13 @@ pub const PROC_PIDPATHINFO_MAXSIZE: ::libc::c_uint = 4096;
 pub const PROC_ALL_PIDS: u32 = 1;
 
 extern "C" {
-    pub fn proc_pidpath(pid: ::libc::pid_t, buffer: *mut ::libc::c_void, buffersize: ::libc::c_uint) -> kern_return_t;
+    pub fn proc_pidpath(pid: ::libc::pid_t, buffer: *mut ::libc::c_void, buffersize: ::libc::c_uint) -> ::libc::c_int;
     pub fn proc_regionfilename(
         pid: ::libc::pid_t,
         address: ::libc::c_ulong,
         buffer: *mut ::libc::c_void,
         buffersize: ::libc::c_uint,
-    ) -> kern_return_t;
+    ) -> ::libc::c_int;
     pub fn proc_pidinfo(
         pid: ::libc::c_int,
         flavor: ::libc::c_int,
@@ -108,3 +108,56 @@ pub struct task_vm_info {
     pub decompressions: integer_t,
     pub ledger_swapins: i64,
 }
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vinfo_stat {
+    pub vst_dev: u32,
+    pub vst_mode: u16,
+    pub vst_nlink: u16,
+    pub vst_ino: u64,
+    pub vst_uid: uid_t,
+    pub vst_gid: gid_t,
+    pub vst_atime: i64,
+    pub vst_atimensec: i64,
+    pub vst_mtime: i64,
+    pub vst_mtimensec: i64,
+    pub vst_ctime: i64,
+    pub vst_ctimensec: i64,
+    pub vst_birthtime: i64,
+    pub vst_birthtimensec: i64,
+    pub vst_size: off_t,
+    pub vst_blocks: i64,
+    pub vst_blksize: i32,
+    pub vst_flags: u32,
+    pub vst_gen: u32,
+    pub vst_rdev: u32,
+    pub vst_qspare: [i64; 2usize],
+}
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vnode_info {
+    pub vi_stat: vinfo_stat,
+    pub vi_type: ::core::ffi::c_int,
+    pub vi_pad: ::core::ffi::c_int,
+    pub vi_fsid: fsid_t,
+}
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct vnode_info_path {
+    pub vip_vi: vnode_info,
+    pub vip_path: [::core::ffi::c_char; 1024usize],
+}
+
+#[repr(C)]
+#[derive(Debug, Copy, Clone)]
+pub struct proc_regionwithpathinfo {
+    pub prp_prinfo: proc_regioninfo,
+    pub prp_vip: vnode_info_path,
+}
+
+pub const PROC_PIDREGIONPATHINFO: core::ffi::c_int = 8;
+pub const PROC_PIDREGIONPATHINFO_SIZE: core::ffi::c_int =
+    core::mem::size_of::<proc_regionwithpathinfo>() as core::ffi::c_int;
