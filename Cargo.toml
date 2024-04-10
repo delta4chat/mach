@@ -1,6 +1,6 @@
 [package]
 name = "mach-sys"
-version = "0.5.4"
+version = "0.5.5"
 authors = [
   # authors of original "mach"
   "Nick Fitzgerald <fitzgen@gmail.com>",
