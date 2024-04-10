@@ -5,6 +5,19 @@ use crate::ffi::{
     cpu_type_t,
     cpu_subtype_t,
 };
+use core::mem::transmute;
+
+// a fixed size, array of signed char (8-bits)
+macro_rules! _c_char_arr {
+    ($name:ident, $bytes:expr) => {
+        pub const $name: &[c_char; $bytes.len()] = unsafe { transmute($bytes) };
+    }
+}
+
+_c_char_arr!(SEG_TEXT, b"__TEXT\0");
+_c_char_arr!(SEG_LINKEDIT, b"__LINKEDIT\0");
+_c_char_arr!(SEG_DATA, b"__DATA\0");
+_c_char_arr!(SEG_DATA_CONST, b"__DATA_CONST\0");
 
 #[repr(C)]
 #[allow(dead_code, non_snake_case)]
@@ -27,11 +40,6 @@ pub const INDIRECT_SYMBOL_ABS:        u32 = 1073741824;
 pub const SECTION_TYPE:               u32 = 255;
 pub const S_LAZY_SYMBOL_POINTERS:     u32 = 7;
 pub const S_NON_LAZY_SYMBOL_POINTERS: u32 = 6;
-
-pub const SEG_TEXT:       &[u8; 7]  = b"__TEXT\0";
-pub const SEG_DATA:       &[u8; 7]  = b"__DATA\0";
-pub const SEG_LINKEDIT:   &[u8; 11] = b"__LINKEDIT\0";
-pub const SEG_DATA_CONST: &[u8; 13] = b"__DATA_CONST\0";
 
 #[repr(C)]
 #[derive(Debug, Copy, Clone, PartialEq, Eq, Hash)]

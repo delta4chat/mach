@@ -1,6 +1,6 @@
 //! This module corresponds to `mach/mach_types.h`
 
-use crate::ffi::{c_uchar, clock_t};
+use crate::ffi::*;
 
 use crate::port::mach_port_t;
 
@@ -101,9 +101,15 @@ pub type fsid = fsid_t;
 // <sys/_types/_fsobj_id_t.h>
 #[repr(C)]
 #[derive(Copy, Clone, Debug, Default, Hash, PartialOrd, PartialEq, Eq, Ord)]
-pub struct fsobj_id_t {
+pub struct fsobj_id {
     pub fid_objno:      u32,
     pub fid_generation: u32,
 }
-pub type fsobj_id = fsobj_id_t;
+pub type fsobj_id_t = fsobj_id;
+
+pub type off_t = c_longlong;
+
+pub type uid_t = c_uint;
+
+pub type gid_t = c_uint;
 
